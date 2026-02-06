@@ -1,0 +1,3889 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Start Quiz | Operations Research Quiz Platform</title>
+        <link rel="stylesheet" href="chatbot.css">
+    <style>
+        :root {
+            --primary-green: #1a5632;
+            --secondary-green: #2e7d32;
+            --accent-green: #4caf50;
+            --light-green: #e8f5e9;
+            --white: #ffffff;
+            --light-gray: #f8f9fa;
+            --medium-gray: #e9ecef;
+            --dark-gray: #495057;
+            --darker-gray: #212529;
+            --card-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            --transition: all 0.35s cubic-bezier(0.165, 0.84, 0.44, 1);
+            --border-radius: 12px;
+            --sidebar-width: 300px;
+            --header-height: 80px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', system-ui, -apple-system, BlinkMacSystemFont, 'Roboto', 'Helvetica Neue', Arial, sans-serif;
+            line-height: 1.6;
+            color: var(--darker-gray);
+            background-color: var(--white);
+            transition: background-color 0.4s ease, color 0.4s ease;
+            overflow-x: hidden;
+        }
+
+        body.dark-mode {
+            background-color: var(--darker-gray);
+            color: var(--light-gray);
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* Navigation Styles */
+        header {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            background-color: rgba(255, 255, 255, 0.95);
+            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.08);
+            backdrop-filter: blur(10px);
+            transition: var(--transition);
+        }
+
+        body.dark-mode header {
+            background-color: rgba(33, 37, 41, 0.92);
+            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: var(--header-height);
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            font-size: 1.85rem;
+            font-weight: 800;
+            color: var(--primary-green);
+            text-decoration: none;
+            letter-spacing: -0.5px;
+        }
+
+        body.dark-mode .logo {
+            color: var(--accent-green);
+        }
+
+        .logo span {
+            color: var(--secondary-green);
+            margin-left: 4px;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 32px;
+            margin-left: 40px;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--darker-gray);
+            font-weight: 600;
+            font-size: 1.05rem;
+            position: relative;
+            padding: 8px 0;
+            transition: var(--transition);
+        }
+
+        .nav-links a:hover, 
+        .nav-links a.active {
+            color: var(--primary-green);
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 3px;
+            background-color: var(--primary-green);
+            border-radius: 2px;
+            transition: var(--transition);
+        }
+
+        .nav-links a:hover::after,
+        .nav-links a.active::after {
+            width: 100%;
+        }
+
+        body.dark-mode .nav-links a {
+            color: var(--light-gray);
+        }
+
+        body.dark-mode .nav-links a:hover,
+        body.dark-mode .nav-links a.active {
+            color: var(--accent-green);
+        }
+
+        .nav-cta {
+            display: flex;
+            align-items: center;
+            gap: 24px;
+        }
+
+        .dark-mode-toggle-container {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .dark-mode-label {
+            font-size: 0.85rem;
+            font-weight: 500;
+            color: var(--dark-gray);
+        }
+
+        body.dark-mode .dark-mode-label {
+            color: var(--light-gray);
+        }
+
+        .switch {
+            position: relative;
+            display: inline-block;
+            width: 56px;
+            height: 30px;
+        }
+
+        .switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: var(--medium-gray);
+            transition: .4s;
+            border-radius: 34px;
+            border: 1px solid var(--light-gray);
+        }
+
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 24px;
+            width: 24px;
+            left: 3px;
+            bottom: 2px;
+            background-color: white;
+            transition: .4s;
+            border-radius: 50%;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+        }
+
+        input:checked + .slider {
+            background-color: var(--primary-green);
+            border-color: var(--primary-green);
+        }
+
+        input:checked + .slider:before {
+            transform: translateX(26px);
+            background-color: var(--white);
+        }
+
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            gap: 5px;
+            padding: 8px;
+            border-radius: 8px;
+            transition: var(--transition);
+            z-index: 1500;
+        }
+
+        .hamburger:hover {
+            background-color: var(--light-gray);
+        }
+
+        body.dark-mode .hamburger:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+
+        .bar {
+            width: 26px;
+            height: 3px;
+            background-color: var(--primary-green);
+            border-radius: 3px;
+            transition: var(--transition);
+        }
+
+        body.dark-mode .bar {
+            background-color: var(--accent-green);
+        }
+
+        /* Hero Section - FULL WIDTH */
+        .hero {
+            position: relative;
+            width: 100%;
+            margin: 0;
+            padding: 0;
+            border-radius: 0;
+            overflow: hidden;
+            box-shadow: none;
+            height: 600px;
+        }
+
+        .slider-container {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+
+        .slides {
+            display: flex;
+            transition: transform 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+            height: 100%;
+        }
+
+        .slide {
+            min-width: 100%;
+            height: 100%;
+            position: relative;
+        }
+
+        .slide img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .slide-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 20, 0, 0.7));
+        }
+
+        .slider-content {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            color: var(--white);
+            padding: 24px;
+            max-width: 900px;
+            z-index: 10;
+            width: 90%;
+        }
+
+        .slider-content h1 {
+            font-size: 3.5rem;
+            font-weight: 800;
+            margin-bottom: 20px;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.35);
+            letter-spacing: -0.5px;
+            line-height: 1.15;
+        }
+
+        .slider-content p {
+            font-size: 1.65rem;
+            margin-bottom: 32px;
+            font-weight: 300;
+            text-shadow: 0 1px 5px rgba(0, 0, 0, 0.4);
+            max-width: 750px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .hero-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 16px;
+        }
+
+        .btn {
+            padding: 14px 36px;
+            border: none;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 1.15rem;
+            cursor: pointer;
+            transition: var(--transition);
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+        }
+
+        .btn-primary {
+            background: linear-gradient(120deg, var(--primary-green), var(--secondary-green));
+            color: var(--white);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(26, 86, 50, 0.45);
+        }
+
+        .btn-secondary {
+            background-color: transparent;
+            color: var(--white);
+            border: 2px solid rgba(255, 255, 255, 0.85);
+        }
+
+        .btn-secondary:hover {
+            background-color: rgba(255, 255, 255, 0.15);
+            transform: translateY(-3px);
+        }
+
+        .slider-dots {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 12px;
+            z-index: 15;
+        }
+
+        .dot {
+            width: 14px;
+            height: 14px;
+            border-radius: 50%;
+            background-color: rgba(255, 255, 255, 0.6);
+            cursor: pointer;
+            transition: var(--transition);
+            border: 2px solid transparent;
+        }
+
+        .dot.active {
+            background-color: transparent;
+            border-color: var(--white);
+            transform: scale(1.25);
+        }
+
+        /* Quiz Setup Section */
+        .quiz-setup {
+            background: var(--white);
+            border-radius: var(--border-radius);
+            box-shadow: var(--card-shadow);
+            padding: 50px;
+            max-width: 800px;
+            margin: -50px auto 80px;
+            position: relative;
+            z-index: 10;
+            transition: var(--transition);
+        }
+
+        body.dark-mode .quiz-setup {
+            background: rgba(45, 50, 55, 0.85);
+        }
+
+        .quiz-setup h2 {
+            font-size: 2.4rem;
+            color: var(--primary-green);
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        body.dark-mode .quiz-setup h2 {
+            color: var(--accent-green);
+        }
+
+        .setup-group {
+            margin-bottom: 35px;
+        }
+
+        .setup-group label {
+            display: block;
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 15px;
+            color: var(--dark-gray);
+        }
+
+        body.dark-mode .setup-group label {
+            color: var(--light-gray);
+        }
+
+        .section-select {
+            width: 100%;
+            padding: 16px 20px;
+            border: 2px solid var(--medium-gray);
+            border-radius: 12px;
+            font-size: 1.2rem;
+            background-color: var(--white);
+            color: var(--darker-gray);
+            appearance: none;
+            background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%23495057' d='M7 10l5 5 5-5z'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 15px center;
+            background-size: 20px;
+            transition: var(--transition);
+        }
+
+        body.dark-mode .section-select {
+            background-color: var(--darker-gray);
+            color: var(--light-gray);
+            border-color: #444;
+            background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%23adb5bd' d='M7 10l5 5 5-5z'/%3E%3C/svg%3E");
+        }
+
+        .section-select:focus {
+            outline: none;
+            border-color: var(--primary-green);
+            box-shadow: 0 0 0 3px rgba(26, 86, 50, 0.2);
+        }
+
+        .length-options {
+            display: flex;
+            gap: 20px;
+            margin-top: 15px;
+        }
+
+        .length-option {
+            flex: 1;
+            padding: 20px;
+            border: 2px solid var(--medium-gray);
+            border-radius: 12px;
+            text-align: center;
+            cursor: pointer;
+            transition: var(--transition);
+            background-color: var(--white);
+        }
+
+        body.dark-mode .length-option {
+            background-color: var(--darker-gray);
+            border-color: #444;
+        }
+
+        .length-option:hover {
+            border-color: var(--primary-green);
+            transform: translateY(-2px);
+        }
+
+        .length-option.selected {
+            border-color: var(--primary-green);
+            background-color: var(--light-green);
+            position: relative;
+        }
+
+        body.dark-mode .length-option.selected {
+            background-color: rgba(46, 125, 50, 0.15);
+        }
+
+        .length-option.selected::after {
+            content: '✓';
+            position: absolute;
+            top: -10px;
+            right: -10px;
+            width: 28px;
+            height: 28px;
+            background-color: var(--primary-green);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 1.1rem;
+        }
+
+        .length-option h3 {
+            font-size: 2rem;
+            margin-bottom: 10px;
+            color: var(--primary-green);
+        }
+
+        body.dark-mode .length-option h3 {
+            color: var(--accent-green);
+        }
+
+        .length-option p {
+            color: var(--dark-gray);
+            font-size: 1.1rem;
+        }
+
+        body.dark-mode .length-option p {
+            color: #adb5bd;
+        }
+
+        .start-btn {
+            display: block;
+            width: 100%;
+            padding: 18px;
+            font-size: 1.4rem;
+            margin-top: 20px;
+            background: linear-gradient(120deg, var(--primary-green), var(--secondary-green));
+            color: white;
+            border: none;
+            border-radius: 50px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: var(--transition);
+            box-shadow: 0 6px 20px rgba(26, 86, 50, 0.35);
+        }
+
+        .start-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(26, 86, 50, 0.45);
+        }
+
+        .start-btn:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+
+        /* Quiz Interface */
+        .quiz-interface {
+            display: none;
+            max-width: 900px;
+            margin: 40px auto;
+            background: var(--white);
+            border-radius: var(--border-radius);
+            box-shadow: var(--card-shadow);
+            overflow: hidden;
+            position: relative;
+        }
+
+        body.dark-mode .quiz-interface {
+            background: rgba(45, 50, 55, 0.85);
+        }
+
+        .quiz-header {
+            padding: 25px 30px;
+            background: linear-gradient(135deg, var(--primary-green), var(--secondary-green));
+            color: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .progress-container {
+            flex-grow: 1;
+            margin-left: 20px;
+        }
+
+        .progress-label {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 8px;
+            font-size: 0.95rem;
+            opacity: 0.9;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 10px;
+            background-color: rgba(255, 255, 255, 0.3);
+            border-radius: 5px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background-color: white;
+            border-radius: 5px;
+            width: 0%;
+            transition: width 0.3s ease;
+        }
+
+        .timer-display {
+            font-size: 1.8rem;
+            font-weight: 700;
+            min-width: 80px;
+            text-align: center;
+            background: rgba(0, 0, 0, 0.25);
+            padding: 8px 15px;
+            border-radius: 50px;
+        }
+
+        .question-container {
+            padding: 40px;
+        }
+
+        .question-number {
+            font-size: 1.1rem;
+            color: var(--primary-green);
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        body.dark-mode .question-number {
+            color: var(--accent-green);
+        }
+
+        .question-text {
+            font-size: 1.65rem;
+            margin-bottom: 35px;
+            line-height: 1.5;
+            font-weight: 600;
+        }
+
+        .options-container {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 15px;
+        }
+
+        .option {
+            padding: 20px 25px;
+            border: 2px solid var(--medium-gray);
+            border-radius: 12px;
+            background-color: var(--white);
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            font-size: 1.15rem;
+            position: relative;
+        }
+
+        body.dark-mode .option {
+            background-color: var(--darker-gray);
+            border-color: #444;
+            color: var(--light-gray);
+        }
+
+        .option:hover {
+            border-color: var(--primary-green);
+            transform: translateX(5px);
+        }
+
+        .option.selected {
+            border-color: var(--primary-green);
+            background-color: var(--light-green);
+        }
+
+        body.dark-mode .option.selected {
+            background-color: rgba(46, 125, 50, 0.15);
+        }
+
+        .option.correct {
+            border-color: var(--accent-green);
+            background-color: rgba(76, 175, 80, 0.15);
+        }
+
+        .option.incorrect {
+            border-color: #f44336;
+            background-color: rgba(244, 67, 54, 0.1);
+        }
+
+        .option-letter {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background-color: var(--primary-green);
+            color: white;
+            font-weight: bold;
+            margin-right: 15px;
+            flex-shrink: 0;
+        }
+
+        .option.selected .option-letter {
+            background-color: white;
+            color: var(--primary-green);
+            border: 2px solid var(--primary-green);
+        }
+
+        .option.correct .option-letter {
+            background-color: white;
+            color: var(--accent-green);
+            border: 2px solid var(--accent-green);
+        }
+
+        .option.incorrect .option-letter {
+            background-color: white;
+            color: #f44336;
+            border: 2px solid #f44336;
+        }
+
+        .quiz-footer {
+            padding: 25px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-top: 1px solid var(--medium-gray);
+        }
+
+        body.dark-mode .quiz-footer {
+            border-top-color: #444;
+        }
+
+        .feedback-message {
+            font-size: 1.2rem;
+            font-weight: 500;
+            margin-left: 20px;
+            min-height: 28px;
+        }
+
+        .feedback-message.correct {
+            color: var(--accent-green);
+        }
+
+        .feedback-message.incorrect {
+            color: #f44336;
+        }
+
+        .next-btn {
+            padding: 14px 35px;
+            font-size: 1.2rem;
+            background: linear-gradient(120deg, var(--primary-green), var(--secondary-green));
+            color: white;
+            border: none;
+            border-radius: 50px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            box-shadow: 0 4px 15px rgba(26, 86, 50, 0.3);
+        }
+
+        .next-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(26, 86, 50, 0.4);
+        }
+
+        .next-btn:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+
+        .next-btn.show-results {
+            background: linear-gradient(120deg, #ff9800, #f57c00);
+        }
+
+        /* Results Section */
+        .results-section {
+            display: none;
+            text-align: center;
+            max-width: 800px;
+            margin: 40px auto;
+            padding: 50px;
+            background: var(--white);
+            border-radius: var(--border-radius);
+            box-shadow: var(--card-shadow);
+        }
+
+        body.dark-mode .results-section {
+            background: rgba(45, 50, 55, 0.85);
+        }
+
+        .results-section h2 {
+            font-size: 3rem;
+            color: var(--primary-green);
+            margin-bottom: 20px;
+        }
+
+        body.dark-mode .results-section h2 {
+            color: var(--accent-green);
+        }
+
+        .score-display {
+            font-size: 8rem;
+            font-weight: 800;
+            background: linear-gradient(120deg, var(--primary-green), var(--accent-green));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            line-height: 1;
+            margin: 20px 0;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .score-message {
+            font-size: 1.8rem;
+            margin: 25px 0 40px;
+            font-weight: 500;
+        }
+
+        .score-details {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            margin: 30px 0;
+            font-size: 1.3rem;
+        }
+
+        .retry-btn {
+            background: linear-gradient(120deg, var(--accent-green), #81c784);
+            color: white;
+            padding: 16px 45px;
+            font-size: 1.3rem;
+            margin-top: 20px;
+        }
+
+        .retry-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(76, 175, 80, 0.4);
+        }
+
+        /* Mobile Menu */
+        .mobile-menu {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 100%;
+            width: var(--sidebar-width);
+            background: var(--white);
+            box-shadow: 5px 0 25px rgba(0, 0, 0, 0.18);
+            transform: translateX(-100%);
+            transition: transform 0.45s cubic-bezier(0.23, 1, 0.32, 1);
+            z-index: 1500;
+            padding: 24px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        body.dark-mode .mobile-menu {
+            background: var(--darker-gray);
+            box-shadow: 5px 0 25px rgba(0, 0, 0, 0.4);
+        }
+
+        .mobile-menu.active {
+            transform: translateX(0);
+        }
+
+        .mobile-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-bottom: 20px;
+            border-bottom: 1px solid var(--medium-gray);
+            margin-bottom: 25px;
+        }
+
+        body.dark-mode .mobile-header {
+            border-bottom: 1px solid #444;
+        }
+
+        .close-menu {
+            background: none;
+            border: none;
+            font-size: 2.2rem;
+            cursor: pointer;
+            color: var(--dark-gray);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition);
+        }
+
+        .close-menu:hover {
+            background-color: var(--light-gray);
+            transform: rotate(90deg);
+        }
+
+        body.dark-mode .close-menu {
+            color: var(--light-gray);
+        }
+
+        body.dark-mode .close-menu:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+
+        .mobile-nav-links {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 22px;
+            margin: 25px 0;
+            flex-grow: 1;
+        }
+
+        .mobile-nav-links a {
+            text-decoration: none;
+            color: var(--darker-gray);
+            font-size: 1.55rem;
+            font-weight: 600;
+            padding: 12px 0;
+            border-bottom: 1px solid var(--medium-gray);
+            transition: var(--transition);
+            display: block;
+        }
+
+        body.dark-mode .mobile-nav-links a {
+            color: var(--light-gray);
+            border-bottom: 1px solid #444;
+        }
+
+        .mobile-nav-links a:hover {
+            color: var(--primary-green);
+            padding-left: 12px;
+        }
+
+        body.dark-mode .mobile-nav-links a:hover {
+            color: var(--accent-green);
+        }
+
+        .mobile-nav-links a.active {
+            color: var(--primary-green);
+            position: relative;
+        }
+
+        body.dark-mode .mobile-nav-links a.active {
+            color: var(--accent-green);
+        }
+
+        .mobile-nav-links a.active::after {
+            content: '';
+            position: absolute;
+            right: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 8px;
+            height: 8px;
+            background-color: var(--primary-green);
+            border-radius: 50%;
+        }
+
+        .mobile-dark-mode {
+            margin-top: 25px;
+            padding-top: 25px;
+            border-top: 1px solid var(--medium-gray);
+        }
+
+        body.dark-mode .mobile-dark-mode {
+            border-top: 1px solid #444;
+        }
+
+        .mobile-dark-mode p {
+            margin-bottom: 15px;
+            font-weight: 500;
+            color: var(--dark-gray);
+        }
+
+        body.dark-mode .mobile-dark-mode p {
+            color: var(--light-gray);
+        }
+
+        .mobile-dark-toggle {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: var(--light-gray);
+            padding: 12px 20px;
+            border-radius: 50px;
+        }
+
+        body.dark-mode .mobile-dark-toggle {
+            background: #3a3f44;
+        }
+
+        /* Footer */
+        footer {
+            background: linear-gradient(135deg, var(--primary-green), var(--secondary-green));
+            color: var(--white);
+            text-align: center;
+            padding: 40px 0 30px;
+            margin-top: 40px;
+        }
+
+        .footer-content {
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .footer-logo {
+            font-size: 2.1rem;
+            font-weight: 800;
+            margin-bottom: 15px;
+            display: block;
+        }
+
+        .footer-logo span {
+            color: var(--accent-green);
+        }
+
+        .copyright {
+            opacity: 0.85;
+            font-size: 1.05rem;
+            margin-top: 10px;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1024px) {
+            .hero {
+                height: 520px;
+            }
+            
+            .slider-content h1 {
+                font-size: 3rem;
+            }
+            
+            .slider-content p {
+                font-size: 1.5rem;
+            }
+            
+            .quiz-setup {
+                padding: 40px 30px;
+                margin-top: -40px;
+            }
+            
+            .question-container {
+                padding: 30px;
+            }
+            
+            .quiz-footer {
+                padding: 20px 30px;
+            }
+        }
+
+        @media (max-width: 900px) {
+            .nav-links, 
+            .desktop-dark-toggle {
+                display: none;
+            }
+            
+            .hamburger {
+                display: flex;
+            }
+            
+            .hero {
+                height: 480px;
+            }
+            
+            .slider-content h1 {
+                font-size: 2.7rem;
+            }
+            
+            .slider-content p {
+                font-size: 1.4rem;
+            }
+            
+            .quiz-setup {
+                padding: 35px 25px;
+                margin-top: -35px;
+            }
+            
+            .length-options {
+                flex-direction: column;
+            }
+            
+            .question-container {
+                padding: 25px;
+            }
+            
+            .results-section {
+                padding: 40px 25px;
+            }
+            
+            .score-display {
+                font-size: 6rem;
+            }
+        }
+
+        @media (max-width: 600px) {
+            :root {
+                --header-height: 70px;
+            }
+            
+            .hero {
+                height: 440px;
+            }
+            
+            .slider-content h1 {
+                font-size: 2.3rem;
+            }
+            
+            .slider-content p {
+                font-size: 1.25rem;
+            }
+            
+            .quiz-setup {
+                padding: 30px 20px;
+                margin-top: -30px;
+            }
+            
+            .quiz-setup h2 {
+                font-size: 2rem;
+            }
+            
+            .section-select {
+                padding: 14px 15px;
+                font-size: 1.1rem;
+            }
+            
+            .length-option {
+                padding: 15px;
+            }
+            
+            .length-option h3 {
+                font-size: 1.7rem;
+            }
+            
+            .start-btn {
+                padding: 16px;
+                font-size: 1.25rem;
+            }
+            
+            .quiz-header {
+                flex-direction: column;
+                gap: 15px;
+                padding: 20px;
+            }
+            
+            .timer-display {
+                width: 100%;
+                font-size: 1.6rem;
+            }
+            
+            .question-container {
+                padding: 20px;
+            }
+            
+            .question-text {
+                font-size: 1.45rem;
+            }
+            
+            .option {
+                padding: 15px 20px;
+                font-size: 1.05rem;
+            }
+            
+            .quiz-footer {
+                flex-direction: column;
+                gap: 15px;
+                padding: 20px;
+            }
+            
+            .next-btn {
+                width: 100%;
+                padding: 12px;
+                font-size: 1.15rem;
+            }
+            
+            .results-section {
+                padding: 35px 20px;
+            }
+            
+            .results-section h2 {
+                font-size: 2.5rem;
+            }
+            
+            .score-display {
+                font-size: 5rem;
+            }
+            
+            .score-message {
+                font-size: 1.5rem;
+            }
+            
+            .footer-content {
+                padding: 0 15px;
+            }
+            
+            .footer-logo {
+                font-size: 1.9rem;
+            }
+            
+            .copyright {
+                font-size: 0.95rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero {
+                height: 400px;
+            }
+            
+            .slider-content h1 {
+                font-size: 2.1rem;
+            }
+            
+            .slider-content p {
+                font-size: 1.15rem;
+            }
+            
+            .quiz-setup {
+                padding: 25px 15px;
+            }
+            
+            .setup-group {
+                margin-bottom: 25px;
+            }
+            
+            .length-option p {
+                font-size: 1rem;
+            }
+            
+            .score-display {
+                font-size: 4.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <header>
+        <nav class="container">
+            <a href="index.html" class="logo">OR<span>Quiz</span></a>
+            
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="course-overview.html">Course Overview</a></li>
+                <li><a href="quiz.html" class="active">Start Quiz</a></li>
+                <li><a href="lecturer.html">Lecturer</a></li>
+                
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+            
+            <div class="nav-cta">
+                <div class="dark-mode-toggle-container">
+                    <span class="dark-mode-label">Light</span>
+                    <label class="switch">
+                        <input type="checkbox" id="darkModeToggle">
+                        <span class="slider round"></span>
+                    </label>
+                    <span class="dark-mode-label">Dark</span>
+                </div>
+            </div>
+            
+            <div class="hamburger" id="hamburger">
+                <div class="bar"></div>
+                <div class="bar"></div>
+                <div class="bar"></div>
+            </div>
+        </nav>
+    </header>
+    
+    <!-- Mobile Menu -->
+    <div class="mobile-menu" id="mobileMenu">
+        <div class="mobile-header">
+            <a href="index.html" class="logo" style="font-size: 1.9rem; margin: 0;">OR<span>Quiz</span></a>
+            <button class="close-menu" id="closeMenu">&times;</button>
+        </div>
+        <ul class="mobile-nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="course-overview.html">Course Overview</a></li>
+            <li><a href="quiz.html" class="active">Start Quiz</a></li>
+            <li><a href="lecturer.html">Lecturer</a></li>
+           
+            <li><a href="contact.html">Contact</a></li>
+        </ul>
+        <div class="mobile-dark-mode">
+            <p>Toggle Dark Mode</p>
+            <div class="mobile-dark-toggle">
+                <span>Light</span>
+                <label class="switch">
+                    <input type="checkbox" id="darkModeToggleMobile">
+                    <span class="slider round"></span>
+                </label>
+                <span>Dark</span>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Hero Section with Slider - FULL WIDTH -->
+    <section class="hero">
+        <div class="slider-container">
+            <div class="slides">
+                <div class="slide">
+                    <img src="https://images.unsplash.com/photo-1542744173-8e7e53415bb0?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1200&q=80" alt="Start Assessment">
+                    <div class="slide-overlay"></div>
+                    <div class="slider-content">
+                        <h1>Begin Your Assessment Journey</h1>
+                        <p>Select your preferred section and quiz length to start testing your Operations Research knowledge</p>
+                    </div>
+                </div>
+                <div class="slide">
+                    <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1200&q=80" alt="Test Knowledge">
+                    <div class="slide-overlay"></div>
+                    <div class="slider-content">
+                        <h1>Challenge Your Understanding</h1>
+                        <p>Timed quizzes designed to simulate real examination conditions and build your problem-solving speed</p>
+                    </div>
+                </div>
+                <div class="slide">
+                    <img src="https://images.unsplash.com/photo-1542838132-92c53300491e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1200&q=80" alt="Timed Practice">
+                    <div class="slide-overlay"></div>
+                    <div class="slider-content">
+                        <h1>Master Time Management</h1>
+                        <p>Develop crucial examination skills with our adaptive timing system for theory and calculation questions</p>
+                    </div>
+                </div>
+                <div class="slide">
+                    <img src="https://images.unsplash.com/photo-1581091226033-d5c48150dbaa?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1200&q=80" alt="Academic Excellence">
+                    <div class="slide-overlay"></div>
+                    <div class="slider-content">
+                        <h1>Achieve Academic Excellence</h1>
+                        <p>Track your progress and identify areas for improvement with detailed performance analytics after each quiz</p>
+                    </div>
+                </div>
+            </div>
+            <div class="slider-dots">
+                <span class="dot active" data-index="0"></span>
+                <span class="dot" data-index="1"></span>
+                <span class="dot" data-index="2"></span>
+                <span class="dot" data-index="3"></span>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Main Content Container -->
+    <main class="container">
+        <!-- Quiz Setup Section -->
+        <section class="quiz-setup" id="quizSetup">
+            <h2>Configure Your Quiz</h2>
+            <div class="setup-group">
+                <label for="sectionSelect">Select Course Section</label>
+                <select id="sectionSelect" class="section-select">
+                    <option value="">-- Choose a section --</option>
+                    <option value="stock-control">Stock Control</option>
+                    <option value="queuing-theory">Queuing Theory</option>
+                    <option value="linear-programming">Linear Programming</option>
+                    <option value="transportation">Transportation</option>
+                    <option value="assignment">Assignment</option>
+                    <option value="project-management">Project Management / Network Analysis</option>
+                </select>
+            </div>
+            <div class="setup-group">
+                <label>Quiz Length</label>
+                <div class="length-options">
+                    <div class="length-option" data-length="15">
+                        <h3>15 Questions</h3>
+                        <p>Quick assessment<br>~15-20 minutes</p>
+                    </div>
+                    <div class="length-option" data-length="30">
+                        <h3>30 Questions</h3>
+                        <p>Comprehensive test<br>~30-40 minutes</p>
+                    </div>
+                </div>
+            </div>
+            <button id="startQuizBtn" class="btn start-btn" disabled>Start Quiz</button>
+        </section>
+        
+        <!-- Quiz Interface -->
+        <section class="quiz-interface" id="quizInterface">
+            <div class="quiz-header">
+                <div class="timer-display" id="timerDisplay">00:00</div>
+                <div class="progress-container">
+                    <div class="progress-label">
+                        <span>Question <span id="currentQuestion">1</span> of <span id="totalQuestions">15</span></span>
+                        <span id="progressPercent">0%</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" id="progressFill"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="question-container">
+                <div class="question-number">Question <span id="questionNumber">1</span></div>
+                <div class="question-text" id="questionText">What is the primary objective of the Economic Order Quantity (EOQ) model?</div>
+                <div class="options-container" id="optionsContainer">
+                    <div class="option" data-index="0">
+                        <div class="option-letter">A</div>
+                        <div class="option-text">Maximize inventory levels to prevent stockouts</div>
+                    </div>
+                    <div class="option" data-index="1">
+                        <div class="option-letter">B</div>
+                        <div class="option-text">Minimize the total inventory costs including ordering and holding costs</div>
+                    </div>
+                    <div class="option" data-index="2">
+                        <div class="option-letter">C</div>
+                        <div class="option-text">Maximize supplier relationships through bulk purchasing</div>
+                    </div>
+                    <div class="option" data-index="3">
+                        <div class="option-letter">D</div>
+                        <div class="option-text">Reduce lead times for inventory replenishment</div>
+                    </div>
+                </div>
+            </div>
+            <div class="quiz-footer">
+                <div class="feedback-message" id="feedbackMessage"></div>
+                <button class="btn next-btn" id="nextBtn" disabled>Next Question</button>
+            </div>
+        </section>
+        
+        <!-- Results Section -->
+        <section class="results-section" id="resultsSection">
+            <h2>Quiz Completed!</h2>
+            <div class="score-display" id="scoreDisplay">85%</div>
+            <div class="score-message" id="scoreMessage">Excellent work! You've demonstrated strong understanding of the concepts.</div>
+            <div class="score-details">
+                <div>Correct Answers: <span id="correctCount">13</span>/15</div>
+                <div>Time Taken: <span id="timeTaken">18:24</span></div>
+            </div>
+            <button class="btn retry-btn" id="retryBtn">Take Another Quiz</button>
+        </section>
+    </main>
+    
+ <!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="footer-content">
+            <span class="footer-logo">OR<span>Quiz</span></span>
+            <p>Academic Resource for Operations Research Students</p>
+            
+            <div class="footer-contact">
+                <p><strong>Need Help or Support?</strong></p>
+                <p>
+                    <a href="tel:+233544823484">
+                        <span class="contact-icon">📞</span> +233 54 482 3484
+                    </a>
+                </p>
+                <p>
+                    <a href="https://wa.me/233544823484" target="_blank" rel="noopener noreferrer">
+                        <span class="contact-icon">💬</span> WhatsApp: +233 54 482 3484
+                    </a>
+                </p>
+                <p>
+                    <a href="mailto:lotsuibrahim2@gmail.com">
+                        <span class="contact-icon">📧</span> lotsuibrahim2@gmail.com
+                    </a>
+                </p>
+            </div>
+            
+            <p class="copyright">&copy; 2026 Operations Research Quiz Platform. All rights reserved.</p>
+            <p>Developed by <a href="https://ibracheck.vercel.app" style="color: var(--accent-green); text-decoration: none;">Ibrahim Mohammed Lotsu</a></p>
+        </div>
+    </div>
+</footer>
+    
+    <script>
+       document.addEventListener('DOMContentLoaded', () => {
+        // DOM Elements
+        const quizSetup = document.getElementById('quizSetup');
+        const quizInterface = document.getElementById('quizInterface');
+        const resultsSection = document.getElementById('resultsSection');
+        const sectionSelect = document.getElementById('sectionSelect');
+        const lengthOptions = document.querySelectorAll('.length-option');
+        const startQuizBtn = document.getElementById('startQuizBtn');
+        const nextBtn = document.getElementById('nextBtn');
+        const retryBtn = document.getElementById('retryBtn');
+        const optionsContainer = document.getElementById('optionsContainer');
+        const questionText = document.getElementById('questionText');
+        const questionNumber = document.getElementById('questionNumber');
+        const currentQuestionEl = document.getElementById('currentQuestion');
+        const totalQuestionsEl = document.getElementById('totalQuestions');
+        const progressFill = document.getElementById('progressFill');
+        const progressPercent = document.getElementById('progressPercent');
+        const timerDisplay = document.getElementById('timerDisplay');
+        const feedbackMessage = document.getElementById('feedbackMessage');
+        const scoreDisplay = document.getElementById('scoreDisplay');
+        const scoreMessage = document.getElementById('scoreMessage');
+        const correctCountEl = document.getElementById('correctCount');
+        const timeTakenEl = document.getElementById('timeTaken');
+        
+        // Quiz state variables
+        let selectedSection = '';
+        let quizLength = 0;
+        let currentQuestionIndex = 0;
+        let score = 0;
+        let userAnswers = [];
+        let timer;
+        let timePerQuestion = 30; // Default for theory questions
+        let totalTime = 0;
+        let startTime;
+        let activeQuestions = [];
+        
+        // Shuffle utility function (Fisher-Yates algorithm)
+        function shuffleArray(array) {
+            const shuffled = [...array]; // Create a copy to avoid mutating original
+            for (let i = shuffled.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+            }
+            return shuffled;
+        }
+            
+            // Sample questions - in a real app, this would be a much larger bank
+            const questionBank = {
+                'stock-control': [
+
+    {
+        question: "What is the primary objective of stock control?",
+        options: [
+            "To minimize total inventory cost",
+            "To increase selling price",
+            "To eliminate ordering completely",
+            "To maximize storage space"
+        ],
+        correctAnswer: 0,
+        type: "theory"
+    },
+
+    {
+        question: "Which cost is incurred each time an order is placed?",
+        options: [
+            "Holding cost",
+            "Ordering cost",
+            "Purchase cost",
+            "Shortage cost"
+        ],
+        correctAnswer: 1,
+        type: "theory"
+    },
+
+    {
+        question: "EOQ stands for:",
+        options: [
+            "Estimated Order Quality",
+            "Efficient Ordering Quantity",
+            "Economic Order Quantity",
+            "Expected Order Quantity"
+        ],
+        correctAnswer: 2,
+        type: "theory"
+    },
+
+    {
+        question: "Which cost increases when inventory is stored for a long time?",
+        options: [
+            "Purchase cost",
+            "Ordering cost",
+            "Transportation cost",
+            "Holding cost"
+        ],
+        correctAnswer: 3,
+        type: "theory"
+    },
+
+    {
+        question: "The basic EOQ model assumes demand is:",
+        options: [
+            "Constant and known",
+            "Random",
+            "Seasonal",
+            "Increasing over time"
+        ],
+        correctAnswer: 0,
+        type: "theory"
+    },
+
+    {
+        question: "Which of the following is NOT an assumption of the EOQ model?",
+        options: [
+            "Instantaneous replenishment",
+            "Constant demand",
+            "Quantity discounts",
+            "No stock-outs"
+        ],
+        correctAnswer: 2,
+        type: "theory"
+    },
+
+    {
+        question: "Lead time refers to:",
+        options: [
+            "Time to sell goods",
+            "Time between placing and receiving an order",
+            "Time goods remain in store",
+            "Time between two orders"
+        ],
+        correctAnswer: 1,
+        type: "theory"
+    },
+
+    {
+        question: "The inventory level at which a new order is placed is called:",
+        options: [
+            "Safety stock",
+            "Maximum level",
+            "Reorder level",
+            "Minimum level"
+        ],
+        correctAnswer: 2,
+        type: "theory"
+    },
+
+    {
+        question: "Safety stock is maintained mainly to:",
+        options: [
+            "Reduce holding cost",
+            "Avoid stock-outs",
+            "Increase EOQ",
+            "Reduce demand"
+        ],
+        correctAnswer: 1,
+        type: "theory"
+    },
+
+    {
+        question: "Which cost arises due to running out of stock?",
+        options: [
+            "Holding cost",
+            "Ordering cost",
+            "Purchase cost",
+            "Shortage cost"
+        ],
+        correctAnswer: 3,
+        type: "theory"
+    },
+
+    {
+        question: "Which two costs are balanced in the EOQ model?",
+        options: [
+            "Ordering and holding costs",
+            "Holding and purchase costs",
+            "Shortage and purchase costs",
+            "Ordering and shortage costs"
+        ],
+        correctAnswer: 0,
+        type: "theory"
+    },
+
+    {
+        question: "If order quantity increases, ordering cost will:",
+        options: [
+            "Increase",
+            "Decrease",
+            "Remain constant",
+            "Become zero"
+        ],
+        correctAnswer: 1,
+        type: "theory"
+    },
+
+    {
+        question: "Which inventory system reviews stock levels continuously?",
+        options: [
+            "Annual review system",
+            "Periodic review system",
+            "Continuous review system",
+            "Random review system"
+        ],
+        correctAnswer: 2,
+        type: "theory"
+    },
+
+    {
+        question: "Which cost is independent of order size?",
+        options: [
+            "Holding cost",
+            "Ordering cost",
+            "Shortage cost",
+            "Purchase cost"
+        ],
+        correctAnswer: 3,
+        type: "theory"
+    },
+
+    {
+        question: "Average inventory level in the basic EOQ model is:",
+        options: [
+            "Q / 2",
+            "Q",
+            "2Q",
+            "Q / 4"
+        ],
+        correctAnswer: 0,
+        type: "theory"
+    },
+
+    {
+        question: "If daily demand is 10 units and lead time is 6 days, reorder level is:",
+        options: [
+            "50 units",
+            "60 units",
+            "70 units",
+            "80 units"
+        ],
+        correctAnswer: 1,
+        type: "calculation"
+    },
+
+    {
+        question: "Which cost includes storage, insurance, and deterioration?",
+        options: [
+            "Purchase cost",
+            "Ordering cost",
+            "Holding cost",
+            "Shortage cost"
+        ],
+        correctAnswer: 2,
+        type: "theory"
+    },
+
+    {
+        question: "Which inventory system places orders at fixed time intervals?",
+        options: [
+            "Continuous review",
+            "Just-in-time",
+            "EOQ system",
+            "Periodic review"
+        ],
+        correctAnswer: 3,
+        type: "theory"
+    },
+
+    {
+        question: "If annual demand is 1,800 units and EOQ is 300 units, number of orders per year is:",
+        options: [
+            "6",
+            "5",
+            "4",
+            "3"
+        ],
+        correctAnswer: 0,
+        type: "calculation"
+    },
+
+    {
+        question: "Which factor does NOT affect EOQ?",
+        options: [
+            "Demand rate",
+            "Holding cost",
+            "Ordering cost",
+            "Selling price"
+        ],
+        correctAnswer: 3,
+        type: "theory"
+    },
+
+    {
+        question: "When holding cost increases, EOQ will:",
+        options: [
+            "Increase",
+            "Decrease",
+            "Remain constant",
+            "Double"
+        ],
+        correctAnswer: 1,
+        type: "theory"
+    },
+
+    {
+        question: "Stock-out situation occurs when:",
+        options: [
+            "Demand exceeds supply",
+            "Inventory reaches zero",
+            "Ordering cost rises",
+            "Holding cost falls"
+        ],
+        correctAnswer: 1,
+        type: "theory"
+    },
+
+    {
+        question: "Which inventory model allows shortages with penalty costs?",
+        options: [
+            "EOQ with shortages",
+            "Basic EOQ",
+            "EOQ with discounts",
+            "Probabilistic EOQ"
+        ],
+        correctAnswer: 0,
+        type: "theory"
+    },
+
+    {
+        question: "Which level represents the highest stock held?",
+        options: [
+            "Minimum level",
+            "Reorder level",
+            "Safety stock",
+            "Maximum level"
+        ],
+        correctAnswer: 3,
+        type: "theory"
+    },
+
+    {
+        question: "If EOQ is 500 units, average inventory is:",
+        options: [
+            "250 units",
+            "500 units",
+            "750 units",
+            "1,000 units"
+        ],
+        correctAnswer: 0,
+        type: "calculation"
+    },
+
+    {
+        question: "Which system aims to keep inventory at minimal levels?",
+        options: [
+            "EOQ system",
+            "Just-in-time system",
+            "Periodic review",
+            "Bulk ordering system"
+        ],
+        correctAnswer: 1,
+        type: "theory"
+    },
+
+    {
+        question: "Inventory turnover measures:",
+        options: [
+            "Stock-out frequency",
+            "Speed at which inventory is used",
+            "Holding cost rate",
+            "Maximum stock level"
+        ],
+        correctAnswer: 1,
+        type: "theory"
+    },
+
+    {
+        question: "Which demand type is assumed in deterministic models?",
+        options: [
+            "Known and constant",
+            "Random",
+            "Seasonal",
+            "Uncertain"
+        ],
+        correctAnswer: 0,
+        type: "theory"
+    },
+
+    {
+        question: "Which cost increases with higher average inventory?",
+        options: [
+            "Ordering cost",
+            "Purchase cost",
+            "Holding cost",
+            "Shortage cost"
+        ],
+        correctAnswer: 2,
+        type: "theory"
+    },
+
+    {
+        question: "The point where total inventory cost is minimized is called:",
+        options: [
+            "Reorder level",
+            "Economic order quantity",
+            "Safety stock",
+            "Maximum level"
+        ],
+        correctAnswer: 1,
+        type: "theory"
+    },
+
+    {
+        question: "If demand doubles while other factors remain constant, EOQ will:",
+        options: [
+            "Decrease",
+            "Remain unchanged",
+            "Increase",
+            "Become zero"
+        ],
+        correctAnswer: 2,
+        type: "theory"
+    },
+
+    {
+        question: "Which inventory system is reviewed at fixed intervals?",
+        options: [
+            "Continuous review",
+            "EOQ",
+            "JIT",
+            "Periodic review"
+        ],
+        correctAnswer: 3,
+        type: "theory"
+    },
+
+    {
+        question: "Which cost is affected by frequency of ordering?",
+        options: [
+            "Ordering cost",
+            "Holding cost",
+            "Purchase cost",
+            "Shortage cost"
+        ],
+        correctAnswer: 0,
+        type: "theory"
+    },
+
+    {
+        question: "The main purpose of inventory control is to:",
+        options: [
+            "Minimize total cost",
+            "Eliminate demand",
+            "Increase storage",
+            "Avoid accounting"
+        ],
+        correctAnswer: 0,
+        type: "theory"
+    },
+
+    {
+        question: "Which factor directly affects reorder level?",
+        options: [
+            "Lead time demand",
+            "Holding cost",
+            "Ordering cost",
+            "Purchase price"
+        ],
+        correctAnswer: 0,
+        type: "theory"
+    },
+
+    {
+        question: "If annual demand is 2,400 units and EOQ is 600 units, number of orders per year is:",
+        options: [
+            "3",
+            "4",
+            "5",
+            "6"
+        ],
+        correctAnswer: 1,
+        type: "calculation"
+    }
+
+
+
+
+
+
+                ],
+                'queuing-theory': [
+                
+
+    {
+        question: "In queuing theory, what does the arrival rate (λ) represent?",
+        options: [
+            "Number of servers",
+            "Average number of arrivals per unit time",
+            "Average service time",
+            "Queue capacity"
+        ],
+        correctAnswer: 1,
+        type: "theory"
+    },
+
+    {
+        question: "Which of the following is an element of a queuing system?",
+        options: [
+            "Arrival process",
+            "Inventory level",
+            "Production schedule",
+            "Market demand"
+        ],
+        correctAnswer: 0,
+        type: "theory"
+    },
+
+    {
+        question: "What does the service rate (μ) indicate?",
+        options: [
+            "Arrival frequency",
+            "Queue length",
+            "Average number of customers served per unit time",
+            "System capacity"
+        ],
+        correctAnswer: 2,
+        type: "theory"
+    },
+
+    {
+        question: "Which queue discipline serves the most recent arrival first?",
+        options: [
+            "FCFS",
+            "Priority",
+            "Random",
+            "LIFO"
+        ],
+        correctAnswer: 3,
+        type: "theory"
+    },
+
+    {
+        question: "In an M/M/1 model, the second 'M' refers to:",
+        options: [
+            "Markovian arrivals",
+            "Multiple servers",
+            "Markovian service times",
+            "Maximum capacity"
+        ],
+        correctAnswer: 2,
+        type: "theory"
+    },
+
+    {
+        question: "Which distribution is commonly assumed for arrivals in basic queuing models?",
+        options: [
+            "Normal distribution",
+            "Poisson distribution",
+            "Uniform distribution",
+            "Binomial distribution"
+        ],
+        correctAnswer: 1,
+        type: "theory"
+    },
+
+    {
+        question: "What condition must be satisfied for a single-server queue to be stable?",
+        options: [
+            "λ > μ",
+            "λ = μ",
+            "λ < μ",
+            "λ = 0"
+        ],
+        correctAnswer: 2,
+        type: "theory"
+    },
+
+    {
+        question: "System utilization (ρ) is defined as:",
+        options: [
+            "μ / λ",
+            "λ / μ",
+            "λ × μ",
+            "μ − λ"
+        ],
+        correctAnswer: 1,
+        type: "theory"
+    },
+
+    {
+        question: "Which operating characteristic measures congestion in a system?",
+        options: [
+            "Arrival rate",
+            "Service rate",
+            "Queue discipline",
+            "Average queue length"
+        ],
+        correctAnswer: 3,
+        type: "theory"
+    },
+
+    {
+        question: "What does L represent in queuing theory?",
+        options: [
+            "Average number of customers in the system",
+            "Average number of customers in the queue",
+            "Average waiting time",
+            "Average service time"
+        ],
+        correctAnswer: 0,
+        type: "theory"
+    },
+
+    {
+        question: "If λ = 5 customers/hour and μ = 10 customers/hour, what is the utilization factor?",
+        options: [
+            "0.25",
+            "0.50",
+            "1.50",
+            "2.00"
+        ],
+        correctAnswer: 1,
+        type: "calculation"
+    },
+
+    {
+        question: "What does W represent in queuing analysis?",
+        options: [
+            "Average waiting time in the system",
+            "Average waiting time in the queue",
+            "Average service time",
+            "Average idle time"
+        ],
+        correctAnswer: 0,
+        type: "theory"
+    },
+
+    {
+        question: "Which of the following is an assumption of the M/M/1 model?",
+        options: [
+            "Deterministic service time",
+            "Finite calling population",
+            "Poisson arrivals",
+            "Multiple service channels"
+        ],
+        correctAnswer: 2,
+        type: "theory"
+    },
+
+    {
+        question: "What happens to waiting time when arrival rate increases, holding service rate constant?",
+        options: [
+            "Decreases",
+            "Remains constant",
+            "Becomes zero",
+            "Increases"
+        ],
+        correctAnswer: 3,
+        type: "theory"
+    },
+
+    {
+        question: "Which cost is included in queuing cost models?",
+        options: [
+            "Advertising cost",
+            "Waiting cost",
+            "Inventory cost",
+            "Transportation cost"
+        ],
+        correctAnswer: 1,
+        type: "theory"
+    },
+
+    {
+        question: "Total expected cost in a queuing system is the sum of:",
+        options: [
+            "Arrival and service costs",
+            "Waiting and service costs",
+            "Holding and shortage costs",
+            "Purchase and ordering costs"
+        ],
+        correctAnswer: 1,
+        type: "theory"
+    },
+
+    {
+        question: "If L = 8 customers and λ = 4 customers/hour, what is W?",
+        options: [
+            "1 hour",
+            "2 hours",
+            "3 hours",
+            "4 hours"
+        ],
+        correctAnswer: 1,
+        type: "calculation"
+    },
+
+    {
+        question: "What does Lq represent?",
+        options: [
+            "Average number of customers in service",
+            "Average number of customers in the system",
+            "Average number of customers waiting in the queue",
+            "Average waiting time in the system"
+        ],
+        correctAnswer: 2,
+        type: "theory"
+    },
+
+    {
+        question: "Which factor does NOT affect queue performance?",
+        options: [
+            "Arrival pattern",
+            "Service mechanism",
+            "Queue discipline",
+            "Accounting policy"
+        ],
+        correctAnswer: 3,
+        type: "theory"
+    },
+
+    {
+        question: "Which of the following represents a single-server model?",
+        options: [
+            "M/M/1",
+            "M/M/∞",
+            "M/G/∞",
+            "G/G/∞"
+        ],
+        correctAnswer: 0,
+        type: "theory"
+    },
+
+    {
+        question: "If μ ≤ λ, the queuing system will:",
+        options: [
+            "Remain stable",
+            "Clear instantly",
+            "Grow without bound",
+            "Operate optimally"
+        ],
+        correctAnswer: 2,
+        type: "theory"
+    },
+
+    {
+        question: "What is Wq?",
+        options: [
+            "Average service time",
+            "Average waiting time in the queue",
+            "Average waiting time in the system",
+            "Average idle time"
+        ],
+        correctAnswer: 1,
+        type: "theory"
+    },
+
+    {
+        question: "If λ = 6 and μ = 8, is the system stable?",
+        options: [
+            "Yes",
+            "No",
+            "Only at peak hours",
+            "Cannot be determined"
+        ],
+        correctAnswer: 0,
+        type: "calculation"
+    },
+
+    {
+        question: "Which queue capacity assumption allows unlimited customers?",
+        options: [
+            "Finite capacity",
+            "Limited capacity",
+            "Infinite capacity",
+            "Fixed capacity"
+        ],
+        correctAnswer: 2,
+        type: "theory"
+    },
+
+    {
+        question: "Which distribution is commonly assumed for service times?",
+        options: [
+            "Uniform",
+            "Normal",
+            "Exponential",
+            "Binomial"
+        ],
+        correctAnswer: 2,
+        type: "theory"
+    },
+
+    {
+        question: "Increasing the number of servers generally leads to:",
+        options: [
+            "Higher waiting time",
+            "Lower service cost",
+            "Lower waiting time",
+            "Higher arrival rate"
+        ],
+        correctAnswer: 2,
+        type: "theory"
+    },
+
+    {
+        question: "Which measure reflects system congestion directly?",
+        options: [
+            "Arrival rate",
+            "Service rate",
+            "Average queue length",
+            "Queue discipline"
+        ],
+        correctAnswer: 2,
+        type: "theory"
+    },
+
+    {
+        question: "If average waiting time increases, total waiting cost will:",
+        options: [
+            "Decrease",
+            "Remain constant",
+            "Increase",
+            "Become zero"
+        ],
+        correctAnswer: 2,
+        type: "theory"
+    },
+
+    {
+        question: "What is the main goal of queuing analysis?",
+        options: [
+            "Eliminate customers",
+            "Maximize arrival rate",
+            "Minimize total system cost",
+            "Increase queue length"
+        ],
+        correctAnswer: 2,
+        type: "theory"
+    },
+
+    {
+        question: "Which of the following is NOT an operating characteristic?",
+        options: [
+            "Average waiting time",
+            "Average queue length",
+            "Service discipline",
+            "Probability of system being idle"
+        ],
+        correctAnswer: 2,
+        type: "theory"
+    },
+
+    {
+        question: "If Lq = 6 customers and λ = 3 customers/hour, what is Wq?",
+        options: [
+            "1 hour",
+            "2 hours",
+            "3 hours",
+            "4 hours"
+        ],
+        correctAnswer: 1,
+        type: "calculation"
+    },
+
+    {
+        question: "Which assumption simplifies most basic queuing models?",
+        options: [
+            "Finite population",
+            "Deterministic arrivals",
+            "Random arrivals",
+            "Priority discipline"
+        ],
+        correctAnswer: 2,
+        type: "theory"
+    },
+
+    {
+        question: "Which factor directly increases service cost?",
+        options: [
+            "More servers",
+            "Longer queues",
+            "Higher waiting time",
+            "Lower arrival rate"
+        ],
+        correctAnswer: 0,
+        type: "theory"
+    },
+
+    {
+        question: "What happens to utilization when service rate increases, other factors constant?",
+        options: [
+            "Increases",
+            "Decreases",
+            "Remains constant",
+            "Becomes infinite"
+        ],
+        correctAnswer: 1,
+        type: "theory"
+    },
+
+    {
+        question: "Which notation represents a general service-time distribution?",
+        options: [
+            "M",
+            "D",
+            "G",
+            "E"
+        ],
+        correctAnswer: 2,
+        type: "theory"
+    },
+
+    {
+        question: "Which queue discipline serves customers randomly?",
+        options: [
+            "FCFS",
+            "LIFO",
+            "Priority",
+            "SIRO"
+        ],
+        correctAnswer: 3,
+        type: "theory"
+    },
+
+    {
+        question: "The probability that a system is empty is highest when:",
+        options: [
+            "λ is high",
+            "μ is high",
+            "λ equals μ",
+            "Waiting cost is high"
+        ],
+        correctAnswer: 1,
+        type: "theory"
+    },
+
+                ],
+                'linear-programming': [
+            
+
+    {
+        question: "What is the primary objective of linear programming?",
+        options: [
+            "To maximize or minimize a linear objective function",
+            "To eliminate constraints",
+            "To solve nonlinear problems",
+            "To analyze queuing systems"
+        ],
+        correctAnswer: 0,
+        type: "theory"
+    },
+
+    {
+        question: "Which of the following best describes a decision variable?",
+        options: [
+            "A fixed numerical value",
+            "An unknown quantity to be determined",
+            "A constraint coefficient",
+            "The objective function value"
+        ],
+        correctAnswer: 1,
+        type: "theory"
+    },
+
+    {
+        question: "In a linear programming model, the objective function must be:",
+        options: [
+            "Quadratic",
+            "Nonlinear",
+            "Linear",
+            "Exponential"
+        ],
+        correctAnswer: 2,
+        type: "theory"
+    },
+
+    {
+        question: "Which of the following is NOT an assumption of linear programming?",
+        options: [
+            "Certainty",
+            "Divisibility",
+            "Additivity",
+            "Randomness"
+        ],
+        correctAnswer: 3,
+        type: "theory"
+    },
+
+    {
+        question: "The constraints in a linear programming problem represent:",
+        options: [
+            "The objective of the problem",
+            "Limitations or restrictions",
+            "Decision variables",
+            "Profit coefficients"
+        ],
+        correctAnswer: 1,
+        type: "theory"
+    },
+
+    {
+        question: "Which method is commonly used to solve LP problems with two variables?",
+        options: [
+            "Simplex method",
+            "Transportation method",
+            "Graphical method",
+            "Assignment method"
+        ],
+        correctAnswer: 2,
+        type: "theory"
+    },
+
+    {
+        question: "The feasible region in a graphical LP solution is:",
+        options: [
+            "The area that violates all constraints",
+            "The set of all feasible solutions",
+            "The objective function line",
+            "The intersection of objective functions"
+        ],
+        correctAnswer: 1,
+        type: "theory"
+    },
+
+    {
+        question: "Which point gives the optimal solution in a graphical LP problem?",
+        options: [
+            "Any point inside the feasible region",
+            "The midpoint of the feasible region",
+            "The point where constraints intersect",
+            "A corner (extreme) point of the feasible region"
+        ],
+        correctAnswer: 3,
+        type: "theory"
+    },
+
+    {
+        question: "If the feasible region is unbounded, the LP problem may have:",
+        options: [
+            "No feasible solution",
+            "A unique optimal solution",
+            "An unbounded optimal solution",
+            "Multiple optimal solutions"
+        ],
+        correctAnswer: 2,
+        type: "theory"
+    },
+
+    {
+        question: "What does a binding constraint indicate at the optimal solution?",
+        options: [
+            "It has unused resources",
+            "It is not satisfied",
+            "It has no effect on the solution",
+            "It is satisfied exactly as an equality"
+        ],
+        correctAnswer: 3,
+        type: "theory"
+    },
+
+    {
+        question: "Which of the following represents a non-negativity constraint?",
+        options: [
+            "x + y ≤ 10",
+            "x − y ≥ 3",
+            "x ≥ 0",
+            "x = 5"
+        ],
+        correctAnswer: 2,
+        type: "theory"
+    },
+
+    {
+        question: "In a maximization problem, the objective function is usually:",
+        options: [
+            "Minimized",
+            "Ignored",
+            "Maximized",
+            "Linearized"
+        ],
+        correctAnswer: 2,
+        type: "theory"
+    },
+
+    {
+        question: "Which assumption allows decision variables to take fractional values?",
+        options: [
+            "Certainty",
+            "Additivity",
+            "Divisibility",
+            "Proportionality"
+        ],
+        correctAnswer: 2,
+        type: "theory"
+    },
+
+    {
+        question: "If two objective function lines coincide with an edge of the feasible region, the LP has:",
+        options: [
+            "No solution",
+            "A unique solution",
+            "An infeasible solution",
+            "Multiple optimal solutions"
+        ],
+        correctAnswer: 3,
+        type: "theory"
+    },
+
+    {
+        question: "What happens if all constraints are contradictory?",
+        options: [
+            "The problem has multiple solutions",
+            "The problem is unbounded",
+            "The problem has no feasible solution",
+            "The problem has an optimal solution"
+        ],
+        correctAnswer: 2,
+        type: "theory"
+    },
+
+    {
+        question: "In the objective function Z = 5x + 3y, what does 5 represent?",
+        options: [
+            "Constraint coefficient",
+            "Decision variable",
+            "Profit contribution per unit of x",
+            "Total profit"
+        ],
+        correctAnswer: 2,
+        type: "theory"
+    },
+
+    {
+        question: "Which of the following is a characteristic of linear programming problems?",
+        options: [
+            "Nonlinear relationships",
+            "Random coefficients",
+            "Multiple objectives",
+            "Linearity"
+        ],
+        correctAnswer: 3,
+        type: "theory"
+    },
+
+    {
+        question: "If the optimal solution lies at the origin, the objective function value is:",
+        options: [
+            "Maximum",
+            "Minimum",
+            "Zero",
+            "Undefined"
+        ],
+        correctAnswer: 2,
+        type: "calculation"
+    },
+
+    {
+        question: "Which method is most suitable for solving large LP problems?",
+        options: [
+            "Graphical method",
+            "Trial-and-error method",
+            "Simplex method",
+            "Simulation method"
+        ],
+        correctAnswer: 2,
+        type: "theory"
+    },
+
+    {
+        question: "Slack variables are added to:",
+        options: [
+            "Objective functions",
+            "Equality constraints",
+            "Greater-than constraints",
+            "Less-than-or-equal-to constraints"
+        ],
+        correctAnswer: 3,
+        type: "theory"
+    },
+
+    {
+        question: "What is the value of the objective function if x = 2 and y = 3 in Z = 4x + 5y?",
+        options: [
+            "19",
+            "22",
+            "23",
+            "26"
+        ],
+        correctAnswer: 1,
+        type: "calculation"
+    },
+
+    {
+        question: "Which constraint ensures feasibility of decision variables?",
+        options: [
+            "Capacity constraint",
+            "Resource constraint",
+            "Non-negativity constraint",
+            "Technical constraint"
+        ],
+        correctAnswer: 2,
+        type: "theory"
+    },
+
+    {
+        question: "Which condition leads to degeneracy in LP?",
+        options: [
+            "More constraints than variables",
+            "Intersection of more than two constraints at a point",
+            "Unbounded feasible region",
+            "No objective function"
+        ],
+        correctAnswer: 1,
+        type: "theory"
+    },
+
+    {
+        question: "In a minimization problem, the optimal solution is found where the objective function is:",
+        options: [
+            "Largest",
+            "Ignored",
+            "Smallest",
+            "Zero"
+        ],
+        correctAnswer: 2,
+        type: "theory"
+    },
+
+    {
+        question: "What is the role of constraints in LP?",
+        options: [
+            "Define profit",
+            "Limit decision variables",
+            "Maximize output",
+            "Eliminate decision variables"
+        ],
+        correctAnswer: 1,
+        type: "theory"
+    },
+
+    {
+        question: "If a feasible region is empty, the LP problem is:",
+        options: [
+            "Optimal",
+            "Unbounded",
+            "Infeasible",
+            "Degenerate"
+        ],
+        correctAnswer: 2,
+        type: "theory"
+    },
+
+    {
+        question: "Which LP assumption implies that total contribution is the sum of individual contributions?",
+        options: [
+            "Certainty",
+            "Divisibility",
+            "Additivity",
+            "Proportionality"
+        ],
+        correctAnswer: 2,
+        type: "theory"
+    },
+
+    {
+        question: "The corner-point principle states that the optimal solution occurs at:",
+        options: [
+            "Any feasible point",
+            "The center of the feasible region",
+            "An extreme point of the feasible region",
+            "The origin only"
+        ],
+        correctAnswer: 2,
+        type: "theory"
+    },
+
+    {
+        question: "Which LP problem has no upper or lower bound on the objective function?",
+        options: [
+            "Feasible problem",
+            "Infeasible problem",
+            "Bounded problem",
+            "Unbounded problem"
+        ],
+        correctAnswer: 3,
+        type: "theory"
+    },
+
+    {
+        question: "If all coefficients in the objective function are zero, the LP problem will have:",
+        options: [
+            "No solution",
+            "A unique solution",
+            "Multiple optimal solutions",
+            "An infeasible solution"
+        ],
+        correctAnswer: 2,
+        type: "theory"
+    },
+
+    {
+        question: "What is the main output of solving an LP problem?",
+        options: [
+            "Queue length",
+            "Optimal values of decision variables",
+            "Inventory level",
+            "Waiting time"
+        ],
+        correctAnswer: 1,
+        type: "theory"
+    },
+
+    {
+        question: "Which of the following violates LP assumptions?",
+        options: [
+            "Linear objective function",
+            "Linear constraints",
+            "Fractional decision variables",
+            "Product interaction effects"
+        ],
+        correctAnswer: 3,
+        type: "theory"
+    },
+
+    {
+        question: "If x = 1 and y = 4, what is Z for Z = 3x + 2y?",
+        options: [
+            "9",
+            "10",
+            "11",
+            "14"
+        ],
+        correctAnswer: 1,
+        type: "calculation"
+    },
+
+    {
+        question: "Which method converts inequalities into equalities in LP?",
+        options: [
+            "Simplex method",
+            "Graphical method",
+            "Slack variable method",
+            "Dual method"
+        ],
+        correctAnswer: 2,
+        type: "theory"
+    },
+
+    {
+        question: "Which LP term describes unused resources at the optimal solution?",
+        options: [
+            "Surplus",
+            "Slack",
+            "Shadow price",
+            "Penalty"
+        ],
+        correctAnswer: 1,
+        type: "theory"
+    },
+
+    {
+        question: "The shadow price represents:",
+        options: [
+            "Change in objective value per unit increase in resource",
+            "Total cost of production",
+            "Decision variable value",
+            "Unused capacity"
+        ],
+        correctAnswer: 0,
+        type: "theory"
+    },
+],
+                
+                'transportation': [
+                
+
+    {
+        question: "What is the main objective of the transportation problem?",
+        options: [
+            "Minimize total transportation cost",
+            "Maximize production output",
+            "Reduce waiting time",
+            "Increase inventory level"
+        ],
+        correctAnswer: 0,
+        type: "theory"
+    },
+
+    {
+        question: "In a transportation problem, supply refers to:",
+        options: [
+            "Customer demand",
+            "Quantity available at a source",
+            "Transportation cost",
+            "Number of destinations"
+        ],
+        correctAnswer: 1,
+        type: "theory"
+    },
+
+    {
+        question: "Demand in a transportation model represents:",
+        options: [
+            "Units available at sources",
+            "Transportation capacity",
+            "Units required at destinations",
+            "Total production cost"
+        ],
+        correctAnswer: 2,
+        type: "theory"
+    },
+
+    {
+        question: "Which condition makes a transportation problem balanced?",
+        options: [
+            "Total supply equals total demand",
+            "Number of sources equals number of destinations",
+            "All costs are equal",
+            "There is only one source"
+        ],
+        correctAnswer: 0,
+        type: "theory"
+    },
+
+    {
+        question: "If total supply exceeds total demand, the transportation problem is:",
+        options: [
+            "Balanced",
+            "Degenerate",
+            "Unbalanced",
+            "Optimal"
+        ],
+        correctAnswer: 2,
+        type: "theory"
+    },
+
+    {
+        question: "Which method is used to find an initial basic feasible solution?",
+        options: [
+            "MODI method",
+            "North-West Corner method",
+            "Simplex method",
+            "Hungarian method"
+        ],
+        correctAnswer: 1,
+        type: "theory"
+    },
+
+    {
+        question: "The North-West Corner method starts allocation from:",
+        options: [
+            "Bottom-right cell",
+            "Top-left cell",
+            "Lowest cost cell",
+            "Highest demand cell"
+        ],
+        correctAnswer: 1,
+        type: "theory"
+    },
+
+    {
+        question: "Which method considers the lowest transportation cost first?",
+        options: [
+            "North-West Corner method",
+            "MODI method",
+            "Least Cost method",
+            "Vogel’s Approximation Method"
+        ],
+        correctAnswer: 2,
+        type: "theory"
+    },
+
+    {
+        question: "Vogel’s Approximation Method (VAM) is based on:",
+        options: [
+            "Penalty cost",
+            "Total supply",
+            "Total demand",
+            "Highest transportation cost"
+        ],
+        correctAnswer: 0,
+        type: "theory"
+    },
+
+    {
+        question: "The MODI method is used to:",
+        options: [
+            "Balance the transportation table",
+            "Test optimality of a solution",
+            "Find initial solution",
+            "Reduce demand"
+        ],
+        correctAnswer: 1,
+        type: "theory"
+    },
+
+    {
+        question: "What is the minimum number of allocations required for a non-degenerate solution?",
+        options: [
+            "m + n",
+            "m × n",
+            "m + n − 1",
+            "m − n"
+        ],
+        correctAnswer: 2,
+        type: "theory"
+    },
+
+    {
+        question: "If the number of allocations is less than (m + n − 1), the solution is:",
+        options: [
+            "Optimal",
+            "Balanced",
+            "Degenerate",
+            "Unbounded"
+        ],
+        correctAnswer: 2,
+        type: "theory"
+    },
+
+    {
+        question: "Which of the following is NOT an assumption of the transportation model?",
+        options: [
+            "Supply and demand are known",
+            "Costs are linear",
+            "Routes are unlimited",
+            "Transportation cost is constant"
+        ],
+        correctAnswer: 2,
+        type: "theory"
+    },
+
+    {
+        question: "A dummy source is added when:",
+        options: [
+            "Supply exceeds demand",
+            "Demand exceeds supply",
+            "Costs are zero",
+            "Problem is degenerate"
+        ],
+        correctAnswer: 1,
+        type: "theory"
+    },
+
+    {
+        question: "A dummy destination is added when:",
+        options: [
+            "Demand exceeds supply",
+            "Supply exceeds demand",
+            "Costs are negative",
+            "Routes are limited"
+        ],
+        correctAnswer: 1,
+        type: "theory"
+    },
+
+    {
+        question: "Which method generally gives a better initial solution?",
+        options: [
+            "North-West Corner",
+            "Least Cost Method",
+            "Vogel’s Approximation Method",
+            "Random allocation"
+        ],
+        correctAnswer: 2,
+        type: "theory"
+    },
+
+    {
+        question: "In MODI method, what does Δij represent?",
+        options: [
+            "Transportation cost",
+            "Opportunity cost",
+            "Supply value",
+            "Demand value"
+        ],
+        correctAnswer: 1,
+        type: "theory"
+    },
+
+    {
+        question: "If all Δij ≥ 0, the solution is:",
+        options: [
+            "Infeasible",
+            "Degenerate",
+            "Unbalanced",
+            "Optimal"
+        ],
+        correctAnswer: 3,
+        type: "theory"
+    },
+
+    {
+        question: "If a Δij is negative, it indicates:",
+        options: [
+            "Optimal solution",
+            "Increase in cost",
+            "Possibility of improvement",
+            "Balanced problem"
+        ],
+        correctAnswer: 2,
+        type: "theory"
+    },
+
+    {
+        question: "Which loop is formed during MODI improvement?",
+        options: [
+            "Open loop",
+            "Random loop",
+            "Closed loop",
+            "Linear loop"
+        ],
+        correctAnswer: 2,
+        type: "theory"
+    },
+
+    {
+        question: "Transportation problems are a special case of:",
+        options: [
+            "Queuing models",
+            "Inventory models",
+            "Linear programming",
+            "Simulation models"
+        ],
+        correctAnswer: 2,
+        type: "theory"
+    },
+
+    {
+        question: "Which cost is minimized in transportation problems?",
+        options: [
+            "Production cost",
+            "Inventory cost",
+            "Transportation cost",
+            "Waiting cost"
+        ],
+        correctAnswer: 2,
+        type: "theory"
+    },
+
+    {
+        question: "If total supply is 200 units and total demand is 200 units, the problem is:",
+        options: [
+            "Unbalanced",
+            "Degenerate",
+            "Balanced",
+            "Optimal"
+        ],
+        correctAnswer: 2,
+        type: "calculation"
+    },
+
+    {
+        question: "Which transportation method uses penalties?",
+        options: [
+            "North-West Corner",
+            "Least Cost Method",
+            "MODI method",
+            "Vogel’s Approximation Method"
+        ],
+        correctAnswer: 3,
+        type: "theory"
+    },
+
+    {
+        question: "In the Least Cost method, allocation is made to:",
+        options: [
+            "Highest cost cell",
+            "Lowest cost cell",
+            "North-West cell",
+            "Highest demand cell"
+        ],
+        correctAnswer: 1,
+        type: "theory"
+    },
+
+    {
+        question: "If m = 3 sources and n = 4 destinations, required allocations are:",
+        options: [
+            "7",
+            "10",
+            "12",
+            "6"
+        ],
+        correctAnswer: 0,
+        type: "calculation"
+    },
+
+    {
+        question: "Which condition causes degeneracy?",
+        options: [
+            "Excess supply",
+            "Insufficient allocations",
+            "High transportation cost",
+            "Dummy destination"
+        ],
+        correctAnswer: 1,
+        type: "theory"
+    },
+
+    {
+        question: "Which cell is chosen first in the Least Cost Method?",
+        options: [
+            "North-West cell",
+            "Cell with highest penalty",
+            "Cell with lowest cost",
+            "Random cell"
+        ],
+        correctAnswer: 2,
+        type: "theory"
+    },
+
+    {
+        question: "What is ε (epsilon) used for in transportation problems?",
+        options: [
+            "Increase demand",
+            "Resolve degeneracy",
+            "Calculate cost",
+            "Balance supply"
+        ],
+        correctAnswer: 1,
+        type: "theory"
+    },
+
+    {
+        question: "If all costs in a transportation table are zero, the total cost will be:",
+        options: [
+            "Maximum",
+            "Negative",
+            "Positive",
+            "Zero"
+        ],
+        correctAnswer: 3,
+        type: "calculation"
+    },
+
+    {
+        question: "Which of the following indicates optimality?",
+        options: [
+            "Negative Δij values",
+            "Zero supply",
+            "All Δij ≥ 0",
+            "Equal costs"
+        ],
+        correctAnswer: 2,
+        type: "theory"
+    },
+
+    {
+        question: "Which transportation method is most computationally efficient?",
+        options: [
+            "North-West Corner",
+            "Least Cost Method",
+            "Vogel’s Approximation Method",
+            "MODI method"
+        ],
+        correctAnswer: 3,
+        type: "theory"
+    },
+
+    {
+        question: "Transportation problems assume costs are:",
+        options: [
+            "Nonlinear",
+            "Random",
+            "Constant per unit",
+            "Seasonal"
+        ],
+        correctAnswer: 2,
+        type: "theory"
+    },
+
+    {
+        question: "If supply equals demand but allocations are less than (m + n − 1), the solution is:",
+        options: [
+            "Balanced",
+            "Optimal",
+            "Degenerate",
+            "Unbounded"
+        ],
+        correctAnswer: 2,
+        type: "theory"
+    },
+
+    {
+        question: "Which method is used to improve an existing transportation solution?",
+        options: [
+            "Graphical method",
+            "MODI method",
+            "NW Corner method",
+            "Penalty method"
+        ],
+        correctAnswer: 1,
+        type: "theory"
+    },
+
+    {
+        question: "Which term describes unused supply or demand added to balance a problem?",
+        options: [
+            "Slack",
+            "Surplus",
+            "Dummy",
+            "Penalty"
+        ],
+        correctAnswer: 2,
+        type: "theory"
+    },
+
+    {
+        question: "Transportation problems primarily deal with:",
+        options: [
+            "Scheduling",
+            "Routing and allocation",
+            "Waiting lines",
+            "Stock replenishment"
+        ],
+        correctAnswer: 1,
+        type: "theory"
+    }
+
+
+
+                ],
+                'assignment': [
+                    {
+                        question: "The Hungarian algorithm is used to solve which type of problem?",
+                        options: [
+                            "Transportation problems",
+                            "Assignment problems",
+                            "Network flow problems",
+                            "Inventory optimization problems"
+                        ],
+                        correctAnswer: 1,
+                        type: "theory"
+                    },
+                    {
+                        question: "In an assignment problem with 5 workers and 5 tasks, how many possible assignments are there?",
+                        options: [
+                            "5",
+                            "25",
+                            "120",
+                            "3125"
+                        ],
+                        correctAnswer: 2,
+                        type: "theory"
+                    },
+                    {
+                        question: "What is the first step in the Hungarian algorithm?",
+                        options: [
+                            "Subtract the smallest element in each row from all elements of its row",
+                            "Subtract the smallest element in each column from all elements of its column",
+                            "Cover all zeros with a minimum number of lines",
+                            "Make assignments where zeros are present"
+                        ],
+                        correctAnswer: 0,
+                        type: "theory"
+                    },
+                    {
+                        question: "For a cost matrix with rows [8, 6, 10], [9, 12, 11], [7, 5, 9], what is the minimum total assignment cost?",
+                        options: [
+                            "18",
+                            "20",
+                            "22",
+                            "24"
+                        ],
+                        correctAnswer: 1,
+                        type: "calculation"
+                    },
+                    {
+                        question: "In an unbalanced assignment problem where there are more tasks than agents, what should be done?",
+                        options: [
+                            "Add dummy agents with zero costs",
+                            "Add dummy tasks with zero costs",
+                            "Remove excess tasks",
+                            "Split tasks among multiple agents"
+                        ],
+                        correctAnswer: 0,
+                        type: "theory"
+                    }
+                ],
+                'project-management': [
+                    {
+                        question: "What does the Critical Path Method (CPM) identify in a project network?",
+                        options: [
+                            "The path with the most activities",
+                            "The longest path through the network that determines project duration",
+                            "The path with the highest cost",
+                            "The path with the most resources"
+                        ],
+                        correctAnswer: 1,
+                        type: "theory"
+                    },
+                    {
+                        question: "In PERT analysis, if an activity has optimistic time=2 days, most likely time=4 days, and pessimistic time=9 days, what is the expected time?",
+                        options: [
+                            "4 days",
+                            "4.5 days",
+                            "5 days",
+                            "5.5 days"
+                        ],
+                        correctAnswer: 1,
+                        type: "calculation"
+                    },
+                    {
+                        question: "What does 'slack time' represent for an activity in a project network?",
+                        options: [
+                            "The time an activity can be delayed without delaying the project",
+                            "The total duration of the activity",
+                            "The time between activity start and finish",
+                            "The buffer time added to all activities"
+                        ],
+                        correctAnswer: 0,
+                        type: "theory"
+                    },
+                    {
+                        question: "For activities A (duration 3 days), B (duration 4 days, depends on A), C (duration 2 days, depends on A), what is the earliest start time for activity C?",
+                        options: [
+                            "Day 0",
+                            "Day 2",
+                            "Day 3",
+                            "Day 4"
+                        ],
+                        correctAnswer: 2,
+                        type: "calculation"
+                    },
+                    {
+                        question: "What is the purpose of a dummy activity in a project network diagram?",
+                        options: [
+                            "To represent an activity with zero duration",
+                            "To show a dependency relationship without consuming resources",
+                            "To indicate a milestone in the project",
+                            "To represent an activity that can be done in parallel"
+                        ],
+                        correctAnswer: 1,
+                        type: "theory"
+                    }
+                ]
+            };
+            
+            // Event Listeners
+          // Event Listeners
+        sectionSelect.addEventListener('change', validateQuizSetup);
+        
+        lengthOptions.forEach(option => {
+            option.addEventListener('click', () => {
+                lengthOptions.forEach(opt => opt.classList.remove('selected'));
+                option.classList.add('selected');
+                quizLength = parseInt(option.getAttribute('data-length'));
+                validateQuizSetup();
+            });
+        });
+        
+        startQuizBtn.addEventListener('click', startQuiz);
+        nextBtn.addEventListener('click', nextQuestion);
+        retryBtn.addEventListener('click', resetQuiz);
+        
+        // Option selection
+        optionsContainer.addEventListener('click', (e) => {
+            if (e.target.closest('.option')) {
+                const selectedOption = e.target.closest('.option');
+                const selectedIndex = parseInt(selectedOption.getAttribute('data-index'));
+                
+                // Clear previous selections
+                document.querySelectorAll('.option').forEach(opt => {
+                    opt.classList.remove('selected');
+                });
+                
+                // Select current option
+                selectedOption.classList.add('selected');
+                
+                // Store answer
+                userAnswers[currentQuestionIndex] = selectedIndex;
+                
+                // Enable next button
+                nextBtn.disabled = false;
+                
+                // Show feedback after selection
+                showFeedback(selectedIndex);
+            }
+        });
+        
+        // Initialize slider
+        const slides = document.querySelectorAll('.slide');
+        const dots = document.querySelectorAll('.dot');
+        let currentSlide = 0;
+        const totalSlides = slides.length;
+        
+        function showSlide(index) {
+            slides.forEach(slide => slide.style.display = 'none');
+            dots.forEach(dot => dot.classList.remove('active'));
+            
+            slides[index].style.display = 'block';
+            dots[index].classList.add('active');
+            currentSlide = index;
+        }
+        
+        function nextSlide() {
+            currentSlide = (currentSlide + 1) % totalSlides;
+            showSlide(currentSlide);
+        }
+        
+        // Initialize first slide
+        showSlide(0);
+        
+        // Auto slide every 6 seconds
+        setInterval(nextSlide, 6000);
+        
+        // Set up dot click events
+        dots.forEach(dot => {
+            dot.addEventListener('click', () => {
+                const index = parseInt(dot.getAttribute('data-index'));
+                showSlide(index);
+            });
+        });
+        
+        // Dark Mode Toggle
+        const darkModeToggle = document.getElementById('darkModeToggle');
+        const darkModeToggleMobile = document.getElementById('darkModeToggleMobile');
+        
+        // Initialize dark mode based on system preference
+        const prefersDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        if (prefersDarkMode) {
+            document.body.classList.add('dark-mode');
+            darkModeToggle.checked = true;
+            darkModeToggleMobile.checked = true;
+        }
+        
+        // Sync both toggles and apply dark mode
+        function setDarkMode(isDark) {
+            if (isDark) {
+                document.body.classList.add('dark-mode');
+                darkModeToggle.checked = true;
+                darkModeToggleMobile.checked = true;
+            } else {
+                document.body.classList.remove('dark-mode');
+                darkModeToggle.checked = false;
+                darkModeToggleMobile.checked = false;
+            }
+        }
+        
+        // Toggle event listeners
+        darkModeToggle.addEventListener('change', (e) => {
+            setDarkMode(e.target.checked);
+        });
+        
+        darkModeToggleMobile.addEventListener('change', (e) => {
+            setDarkMode(e.target.checked);
+        });
+        
+        // Mobile Menu Toggle
+        const hamburger = document.getElementById('hamburger');
+        const mobileMenu = document.getElementById('mobileMenu');
+        const closeMenu = document.getElementById('closeMenu');
+        const mobileLinks = document.querySelectorAll('.mobile-nav-links a');
+        
+        hamburger.addEventListener('click', () => {
+            mobileMenu.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        });
+        
+        closeMenu.addEventListener('click', () => {
+            mobileMenu.classList.remove('active');
+            document.body.style.overflow = 'auto';
+        });
+        
+        // Close menu when clicking outside
+        mobileMenu.addEventListener('click', (e) => {
+            if (e.target === mobileMenu) {
+                mobileMenu.classList.remove('active');
+                document.body.style.overflow = 'auto';
+            }
+        });
+        
+        // Close menu when clicking a nav link
+        mobileLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.remove('active');
+                document.body.style.overflow = 'auto';
+            });
+        });
+        
+        // Close mobile menu when clicking outside on larger screens
+        window.addEventListener('resize', () => {
+            if (window.innerWidth > 900 && mobileMenu.classList.contains('active')) {
+                mobileMenu.classList.remove('active');
+                document.body.style.overflow = 'auto';
+            }
+        });
+        
+        // Quiz Functions
+        function validateQuizSetup() {
+            selectedSection = sectionSelect.value;
+            const isLengthSelected = quizLength > 0;
+            startQuizBtn.disabled = !(selectedSection && isLengthSelected);
+        }
+        
+        // ★★★ MODIFIED FUNCTION - Now includes randomization ★★★
+        function startQuiz() {
+            // Reset quiz state
+            currentQuestionIndex = 0;
+            score = 0;
+            userAnswers = [];
+            totalTime = 0;
+            startTime = new Date();
+            
+            // Get questions for selected section and shuffle them
+            const allQuestions = questionBank[selectedSection];
+            const shuffledQuestions = shuffleArray(allQuestions);
+            
+            // Select only the number of questions needed for quiz length
+            activeQuestions = shuffledQuestions.slice(0, quizLength);
+            
+            // Hide setup, show quiz interface
+            quizSetup.style.display = 'none';
+            quizInterface.style.display = 'block';
+            resultsSection.style.display = 'none';
+            
+            // Set total questions display
+            totalQuestionsEl.textContent = quizLength;
+            currentQuestionEl.textContent = currentQuestionIndex + 1;
+            questionNumber.textContent = currentQuestionIndex + 1;
+            
+            // Initialize progress bar
+            updateProgress();
+            
+            // Load first question
+            loadQuestion();
+        }
+        
+        // ★★★ MODIFIED FUNCTION - Now uses activeQuestions ★★★
+        function loadQuestion() {
+            // Clear feedback
+            feedbackMessage.textContent = '';
+            feedbackMessage.className = 'feedback-message';
+            
+            // Reset options
+            document.querySelectorAll('.option').forEach(opt => {
+                opt.classList.remove('selected', 'correct', 'incorrect');
+            });
+            
+            // Get current question from the shuffled active questions
+            const question = activeQuestions[currentQuestionIndex];
+            
+            // Set question text
+            questionText.textContent = question.question;
+            
+            // Set options
+            const options = document.querySelectorAll('.option');
+            options.forEach((option, index) => {
+                option.querySelector('.option-text').textContent = question.options[index];
+            });
+            
+            // Set timer based on question type
+            timePerQuestion = question.type === 'calculation' ? 50 : 30;
+            startTimer();
+            
+            // Disable next button until answer is selected
+            nextBtn.disabled = true;
+            
+            // If returning to a previously answered question
+            if (userAnswers[currentQuestionIndex] !== undefined) {
+                const savedAnswer = userAnswers[currentQuestionIndex];
+                options[savedAnswer].classList.add('selected');
+                nextBtn.disabled = false;
+                showFeedback(savedAnswer);
+            }
+        }
+        
+        function startTimer() {
+            let timeLeft = timePerQuestion;
+            timerDisplay.textContent = formatTime(timeLeft);
+            
+            clearInterval(timer);
+            timer = setInterval(() => {
+                timeLeft--;
+                timerDisplay.textContent = formatTime(timeLeft);
+                
+                // Update timer color as time runs low
+                if (timeLeft <= 10) {
+                    timerDisplay.style.color = '#f44336';
+                } else {
+                    timerDisplay.style.color = 'white';
+                }
+                
+                if (timeLeft <= 0) {
+                    clearInterval(timer);
+                    // Auto-select no answer if time runs out
+                    if (userAnswers[currentQuestionIndex] === undefined) {
+                        userAnswers[currentQuestionIndex] = -1; // No answer
+                    }
+                    nextBtn.disabled = false;
+                    showFeedback(userAnswers[currentQuestionIndex]);
+                }
+            }, 1000);
+        }
+        
+        function formatTime(seconds) {
+            const mins = Math.floor(seconds / 60);
+            const secs = seconds % 60;
+            return `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+        }
+        
+        // ★★★ MODIFIED FUNCTION - Now uses activeQuestions ★★★
+        function showFeedback(selectedIndex) {
+            // Get current question from active questions
+            const question = activeQuestions[currentQuestionIndex];
+            const correctAnswer = question.correctAnswer;
+            
+            // Show correct/incorrect styling
+            const options = document.querySelectorAll('.option');
+            options.forEach((option, index) => {
+                if (index === correctAnswer) {
+                    option.classList.add('correct');
+                }
+                if (index === selectedIndex && index !== correctAnswer) {
+                    option.classList.add('incorrect');
+                }
+            });
+            
+            // Show feedback message
+            if (selectedIndex === correctAnswer) {
+                feedbackMessage.textContent = 'Correct! ✓';
+                feedbackMessage.className = 'feedback-message correct';
+                
+                // Only add to score if this is the first time answering
+                if (userAnswers[currentQuestionIndex] !== -2) { // -2 means already scored
+                    score++;
+                    userAnswers[currentQuestionIndex] = -2; // Mark as scored
+                }
+            } else if (selectedIndex === -1) {
+                feedbackMessage.textContent = 'Time ran out! The correct answer is shown above.';
+                feedbackMessage.className = 'feedback-message incorrect';
+            } else {
+                feedbackMessage.textContent = 'Incorrect. The correct answer is shown above.';
+                feedbackMessage.className = 'feedback-message incorrect';
+            }
+        }
+        
+        function nextQuestion() {
+            clearInterval(timer);
+            
+            // If this is the last question, show results
+            if (currentQuestionIndex === quizLength - 1) {
+                showResults();
+                return;
+            }
+            
+            // Move to next question
+            currentQuestionIndex++;
+            currentQuestionEl.textContent = currentQuestionIndex + 1;
+            questionNumber.textContent = currentQuestionIndex + 1;
+            
+            // Update progress
+            updateProgress();
+            
+            // Load next question
+            loadQuestion();
+        }
+        
+        function updateProgress() {
+            const progress = ((currentQuestionIndex) / quizLength) * 100;
+            progressFill.style.width = `${progress}%`;
+            progressPercent.textContent = `${Math.round(progress)}%`;
+        }
+        
+        function showResults() {
+            clearInterval(timer);
+            
+            // Calculate total time
+            const endTime = new Date();
+            const timeDiff = Math.floor((endTime - startTime) / 1000);
+            const minutes = Math.floor(timeDiff / 60);
+            const seconds = timeDiff % 60;
+            totalTime = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+            
+            // Calculate score percentage
+            const scorePercent = Math.round((score / quizLength) * 100);
+            
+            // Update results display
+            scoreDisplay.textContent = `${scorePercent}%`;
+            correctCountEl.textContent = `${score}/${quizLength}`;
+            timeTakenEl.textContent = totalTime;
+            
+            // Set score message
+            if (scorePercent >= 90) {
+                scoreMessage.textContent = "Outstanding performance! You've mastered this section.";
+                scoreMessage.style.color = '#4caf50';
+            } else if (scorePercent >= 75) {
+                scoreMessage.textContent = "Excellent work! You've demonstrated strong understanding of the concepts.";
+                scoreMessage.style.color = '#8bc34a';
+            } else if (scorePercent >= 60) {
+                scoreMessage.textContent = "Good effort! Review the concepts you missed to improve further.";
+                scoreMessage.style.color = '#ff9800';
+            } else {
+                scoreMessage.textContent = "Keep practicing! Focus on the areas where you struggled to build confidence.";
+                scoreMessage.style.color = '#f44336';
+            }
+            
+            // Show results section
+            quizInterface.style.display = 'none';
+            resultsSection.style.display = 'block';
+        }
+        
+        function resetQuiz() {
+            // Show setup section again
+            quizSetup.style.display = 'block';
+            quizInterface.style.display = 'none';
+            resultsSection.style.display = 'none';
+            
+            // Reset form
+            sectionSelect.value = '';
+            lengthOptions.forEach(opt => opt.classList.remove('selected'));
+            quizLength = 0;
+            startQuizBtn.disabled = true;
+        }
+    });
+    </script>
+
+
+<!-- Chatbot Toggle Button -->
+<button id="orChatbotToggle" class="or-chatbot-toggle" aria-label="Open chat assistant">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z" />
+    </svg>
+    <span class="or-chatbot-badge" id="orChatbotBadge">1</span>
+</button>
+
+<!-- Chatbot Container -->
+<div id="orChatbotContainer" class="or-chatbot-container">
+    <!-- Chatbot Header -->
+    <div class="or-chatbot-header">
+        <div class="or-chatbot-header-content">
+            <div class="or-chatbot-avatar">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
+                </svg>
+            </div>
+            <div class="or-chatbot-info">
+                <h3>OR Study Assistant</h3>
+                <p class="or-chatbot-status"><span class="or-status-dot"></span> Online</p>
+            </div>
+        </div>
+        <div class="or-chatbot-actions">
+            <button class="or-chatbot-minimize" id="orChatbotMinimize" title="Minimize" aria-label="Minimize chat">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
+                </svg>
+            </button>
+            <button class="or-chatbot-close" id="orChatbotClose" title="Close" aria-label="Close chat">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+                </svg>
+            </button>
+        </div>
+    </div>
+
+    <!-- Chatbot Messages -->
+    <div class="or-chatbot-messages" id="orChatbotMessages">
+        <!-- Messages will be injected here by JavaScript -->
+    </div>
+
+    <!-- Quick Suggestions -->
+    <div class="or-chatbot-suggestions" id="orChatbotSuggestions">
+        <button class="or-suggestion-chip" data-message="How does this site work?">
+            <span>🏠</span> How does this work?
+        </button>
+        <button class="or-suggestion-chip" data-message="Which section should I start with?">
+            <span>🎯</span> Where to start?
+        </button>
+        <button class="or-suggestion-chip" data-message="Explain Stock Control">
+            <span>📦</span> Stock Control
+        </button>
+        <button class="or-suggestion-chip" data-message="What are the quiz rules?">
+            <span>⏱️</span> Quiz rules
+        </button>
+    </div>
+
+    <!-- Chatbot Input -->
+    <div class="or-chatbot-input-container">
+        <textarea 
+            id="orChatbotInput" 
+            class="or-chatbot-input" 
+            placeholder="Ask me about Operations Research..."
+            rows="1"
+            aria-label="Type your message"
+        ></textarea>
+        <button class="or-chatbot-send" id="orChatbotSend" aria-label="Send message">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" />
+            </svg>
+        </button>
+    </div>
+
+    <!-- Powered By -->
+    <div class="or-chatbot-footer">
+        <span>OR Study Assistant • Powered by ORQuiz Platform</span>
+    </div>
+</div>
+
+<!-- Load Chatbot Styles and Scripts -->
+<link rel="stylesheet" href="chatbot-widget.css">
+<script src="chatbot-widget.js"></script>
+    
+    <script src="chatbot.js"></script>
+</body>
+</html>
+
