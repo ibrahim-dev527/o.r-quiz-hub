@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Contact Us | Operations Research Quiz Platform</title>
+    <title>About | OR Quiz Platform - Built by Ibrahim Mohammed Lotsu</title>
     <link rel="stylesheet" href="chatbot.css">
     <style>
         :root {
@@ -27,6 +27,20 @@
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', system-ui, -apple-system, BlinkMacSystemFont, 'Roboto', 'Helvetica Neue', Arial, sans-serif;
+            line-height: 1.6;
+            color: var(--darker-gray);
+            background-color: var(--white);
+            transition: background-color 0.4s ease, color 0.4s ease;
+            overflow-x: hidden;
+        }
+
+        body.dark-mode {
+            background-color: var(--darker-gray);
+            color: var(--light-gray);
         }
 
         /* Animations */
@@ -92,44 +106,6 @@
             }
         }
 
-        @keyframes slideInFromBottom {
-            from {
-                opacity: 0;
-                transform: translateY(50px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        @keyframes rotate {
-            from {
-                transform: rotate(0deg);
-            }
-            to {
-                transform: rotate(360deg);
-            }
-        }
-
-        @keyframes gradientShift {
-            0%, 100% {
-                background-position: 0% 50%;
-            }
-            50% {
-                background-position: 100% 50%;
-            }
-        }
-
-        @keyframes bounce {
-            0%, 100% {
-                transform: translateY(0);
-            }
-            50% {
-                transform: translateY(-10px);
-            }
-        }
-
         .animate-on-scroll {
             opacity: 0;
             animation: fadeInUp 0.8s ease forwards;
@@ -145,20 +121,6 @@
 
         .animate-delay-3 {
             animation-delay: 0.6s;
-        }
-
-        body {
-            font-family: 'Segoe UI', system-ui, -apple-system, BlinkMacSystemFont, 'Roboto', 'Helvetica Neue', Arial, sans-serif;
-            line-height: 1.6;
-            color: var(--darker-gray);
-            background-color: var(--white);
-            transition: background-color 0.4s ease, color 0.4s ease;
-            overflow-x: hidden;
-        }
-
-        body.dark-mode {
-            background-color: var(--darker-gray);
-            color: var(--light-gray);
         }
 
         .container {
@@ -377,7 +339,7 @@
             margin: 0;
             padding: 0;
             overflow: hidden;
-            height: 500px;
+            height: 600px;
             background: linear-gradient(135deg, var(--primary-green), var(--secondary-green));
         }
 
@@ -404,39 +366,206 @@
             z-index: 2;
         }
 
-        .hero-text {
-            animation: fadeInUp 1s ease;
-        }
-
         .hero-text h1 {
             font-size: 4rem;
             font-weight: 800;
             margin-bottom: 20px;
+            animation: fadeInUp 1s ease;
             text-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
-            animation: fadeInUp 1s ease 0.2s both;
         }
 
         .hero-text p {
-            font-size: 1.6rem;
+            font-size: 1.8rem;
+            margin-bottom: 40px;
             opacity: 0.95;
-            animation: fadeInUp 1s ease 0.4s both;
+            animation: fadeInUp 1s ease 0.3s both;
         }
 
-        .hero-icon {
+        .hero-emoji {
             font-size: 5rem;
             display: block;
-            margin-bottom: 20px;
-            animation: bounce 2s ease-in-out infinite;
+            margin-bottom: 30px;
+            animation: pulse 2s ease-in-out infinite;
         }
 
-        /* Contact Section */
-        .contact-section {
+        /* Profile Section */
+        .profile-section {
             padding: 100px 0;
             background-color: var(--white);
             transition: background-color 0.4s ease;
         }
 
-        body.dark-mode .contact-section {
+        body.dark-mode .profile-section {
+            background-color: var(--darker-gray);
+        }
+
+        .profile-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 60px;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .profile-image-container {
+            flex: 1;
+            min-width: 300px;
+            display: flex;
+            justify-content: center;
+            animation: fadeInLeft 1s ease;
+        }
+
+        .profile-image-wrapper {
+            position: relative;
+            width: 100%;
+            max-width: 450px;
+        }
+
+        .profile-image-wrapper::before {
+            content: '';
+            position: absolute;
+            top: -20px;
+            left: -20px;
+            right: 20px;
+            bottom: 20px;
+            background: linear-gradient(135deg, var(--primary-green), var(--accent-green));
+            border-radius: var(--border-radius);
+            z-index: -1;
+            opacity: 0.3;
+            animation: pulse 3s ease-in-out infinite;
+        }
+
+        .profile-image-wrapper img {
+            width: 100%;
+            border-radius: var(--border-radius);
+            box-shadow: var(--card-shadow);
+            transition: var(--transition);
+        }
+
+        .profile-image-wrapper:hover img {
+            transform: scale(1.03) translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
+        }
+
+        .profile-content {
+            flex: 1;
+            min-width: 300px;
+            animation: fadeInRight 1s ease;
+        }
+
+        .profile-content h1 {
+            font-size: 3.5rem;
+            color: var(--primary-green);
+            margin-bottom: 15px;
+            line-height: 1.2;
+            animation: fadeInUp 1s ease 0.2s both;
+        }
+
+        body.dark-mode .profile-content h1 {
+            color: var(--accent-green);
+        }
+
+        .profile-title {
+            font-size: 1.8rem;
+            color: var(--secondary-green);
+            margin-bottom: 25px;
+            font-weight: 500;
+            display: block;
+            animation: fadeInUp 1s ease 0.4s both;
+        }
+
+        body.dark-mode .profile-title {
+            color: var(--accent-green);
+        }
+
+        .profile-bio {
+            font-size: 1.25rem;
+            line-height: 1.8;
+            margin-bottom: 30px;
+            color: var(--dark-gray);
+            animation: fadeInUp 1s ease 0.6s both;
+        }
+
+        body.dark-mode .profile-bio {
+            color: #adb5bd;
+        }
+
+        /* Stats Section */
+        .stats-section {
+            padding: 80px 0;
+            background: var(--light-green);
+            transition: background-color 0.4s ease;
+        }
+
+        body.dark-mode .stats-section {
+            background: rgba(30, 45, 35, 0.85);
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .stat-card {
+            background: var(--white);
+            border-radius: var(--border-radius);
+            padding: 40px 30px;
+            text-align: center;
+            box-shadow: var(--card-shadow);
+            transition: var(--transition);
+            animation: scaleIn 0.6s ease;
+        }
+
+        body.dark-mode .stat-card {
+            background: rgba(45, 50, 55, 0.7);
+        }
+
+        .stat-card:hover {
+            transform: translateY(-10px) scale(1.03);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+        }
+
+        .stat-icon {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            display: block;
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        .stat-number {
+            font-size: 3rem;
+            font-weight: 800;
+            color: var(--primary-green);
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        body.dark-mode .stat-number {
+            color: var(--accent-green);
+        }
+
+        .stat-label {
+            font-size: 1.2rem;
+            color: var(--dark-gray);
+            font-weight: 500;
+        }
+
+        body.dark-mode .stat-label {
+            color: #adb5bd;
+        }
+
+        /* Story Section */
+        .story-section {
+            padding: 100px 0;
+            background-color: var(--white);
+            transition: background-color 0.4s ease;
+        }
+
+        body.dark-mode .story-section {
             background-color: var(--darker-gray);
         }
 
@@ -450,7 +579,7 @@
         }
 
         .section-title h2 {
-            font-size: 2.8rem;
+            font-size: 3rem;
             font-weight: 800;
             color: var(--primary-green);
             margin-bottom: 18px;
@@ -468,443 +597,357 @@
             bottom: -12px;
             left: 50%;
             transform: translateX(-50%);
-            width: 80px;
-            height: 4px;
+            width: 100px;
+            height: 5px;
             background: linear-gradient(90deg, var(--primary-green), var(--accent-green));
-            border-radius: 2px;
+            border-radius: 3px;
         }
 
         .section-title p {
             color: var(--dark-gray);
-            font-size: 1.25rem;
+            font-size: 1.3rem;
             margin-top: 28px;
-            line-height: 1.6;
+            line-height: 1.7;
         }
 
         body.dark-mode .section-title p {
             color: #adb5bd;
         }
 
-        .contact-container {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 60px;
+        .story-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
             max-width: 1200px;
             margin: 0 auto;
         }
 
-        .contact-form {
-            flex: 1;
-            min-width: 300px;
-            background: var(--white);
-            border-radius: var(--border-radius);
-            padding: 45px;
-            box-shadow: var(--card-shadow);
-            transition: var(--transition);
-            animation: fadeInLeft 1s ease;
-        }
-
-        body.dark-mode .contact-form {
-            background: rgba(45, 50, 55, 0.7);
-        }
-
-        .contact-form:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
-        }
-
-        .form-group {
-            margin-bottom: 25px;
-            animation: fadeInUp 0.6s ease;
-        }
-
-        .form-group label {
-            display: block;
-            font-size: 1.15rem;
-            font-weight: 600;
-            margin-bottom: 10px;
-            color: var(--dark-gray);
-        }
-
-        body.dark-mode .form-group label {
-            color: var(--light-gray);
-        }
-
-        .form-control {
-            width: 100%;
-            padding: 16px 20px;
-            border: 2px solid var(--medium-gray);
-            border-radius: 12px;
-            font-size: 1.1rem;
-            background-color: var(--white);
-            color: var(--darker-gray);
-            transition: var(--transition);
-        }
-
-        body.dark-mode .form-control {
-            background-color: var(--darker-gray);
-            color: var(--light-gray);
-            border-color: #444;
-        }
-
-        .form-control:focus {
-            outline: none;
-            border-color: var(--primary-green);
-            box-shadow: 0 0 0 3px rgba(26, 86, 50, 0.2);
-            transform: scale(1.02);
-        }
-
-        textarea.form-control {
-            min-height: 180px;
-            resize: vertical;
-        }
-
-        .submit-btn {
-            background: linear-gradient(120deg, var(--primary-green), var(--secondary-green));
-            color: var(--white);
-            border: none;
-            border-radius: 50px;
-            padding: 16px 45px;
-            font-size: 1.25rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: var(--transition);
-            width: 100%;
-            margin-top: 10px;
-            box-shadow: 0 4px 15px rgba(26, 86, 50, 0.3);
-        }
-
-        .submit-btn:hover {
-            transform: translateY(-3px) scale(1.02);
-            box-shadow: 0 6px 20px rgba(26, 86, 50, 0.45);
-        }
-
-        .submit-btn:active {
-            transform: translateY(-1px) scale(0.98);
-        }
-
-        .submit-btn:disabled {
-            background: #ccc;
-            cursor: not-allowed;
-            transform: none;
-            box-shadow: none;
-        }
-
-        .contact-info {
-            flex: 1;
-            min-width: 300px;
-            animation: fadeInRight 1s ease;
-        }
-
-        .info-card {
+        .story-card {
             background: var(--white);
             border-radius: var(--border-radius);
             padding: 40px;
             box-shadow: var(--card-shadow);
-            margin-bottom: 30px;
             transition: var(--transition);
-            border-top: 4px solid var(--primary-green);
-            animation: scaleIn 0.8s ease;
+            border-left: 5px solid var(--primary-green);
+            animation: fadeInUp 0.8s ease;
         }
 
-        body.dark-mode .info-card {
+        body.dark-mode .story-card {
             background: rgba(45, 50, 55, 0.7);
         }
 
-        .info-card:hover {
-            transform: translateY(-5px) scale(1.02);
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
+        .story-card:hover {
+            transform: translateX(10px);
+            box-shadow: 0 12px 35px rgba(0, 0, 0, 0.15);
         }
 
-        .info-card h3 {
-            font-size: 1.9rem;
-            color: var(--primary-green);
-            margin-bottom: 25px;
-            display: flex;
-            align-items: center;
-            gap: 15px;
-        }
-
-        body.dark-mode .info-card h3 {
-            color: var(--accent-green);
-        }
-
-        .info-item {
-            display: flex;
+        .story-icon {
+            font-size: 3rem;
             margin-bottom: 20px;
-            padding-bottom: 20px;
-            border-bottom: 1px solid var(--medium-gray);
-            animation: fadeInUp 0.6s ease;
-        }
-
-        body.dark-mode .info-item {
-            border-bottom-color: #444;
-        }
-
-        .info-item:last-child {
-            margin-bottom: 0;
-            padding-bottom: 0;
-            border-bottom: none;
-        }
-
-        .info-icon {
-            min-width: 45px;
-            height: 45px;
-            background: var(--light-green);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-right: 15px;
-            flex-shrink: 0;
-            color: var(--primary-green);
-            font-size: 1.4rem;
-            animation: pulse 2s ease-in-out infinite;
-        }
-
-        body.dark-mode .info-icon {
-            background: rgba(46, 125, 50, 0.15);
-            color: var(--accent-green);
-        }
-
-        .info-details h4 {
-            font-size: 1.35rem;
-            margin-bottom: 5px;
-            color: var(--dark-gray);
-        }
-
-        body.dark-mode .info-details h4 {
-            color: var(--light-gray);
-        }
-
-        .info-details p, .info-details a {
-            color: var(--dark-gray);
-            text-decoration: none;
-            transition: var(--transition);
             display: block;
         }
 
-        body.dark-mode .info-details p, 
-        body.dark-mode .info-details a {
-            color: #adb5bd;
-        }
-
-        .info-details a:hover {
+        .story-card h3 {
+            font-size: 1.9rem;
             color: var(--primary-green);
-            text-decoration: underline;
-            transform: translateX(5px);
+            margin-bottom: 15px;
+            font-weight: 700;
         }
 
-        body.dark-mode .info-details a:hover {
+        body.dark-mode .story-card h3 {
             color: var(--accent-green);
         }
 
-        /* Booking Section */
-        .booking-section {
-            padding: 90px 0;
+        .story-card p {
+            font-size: 1.15rem;
+            line-height: 1.8;
+            color: var(--dark-gray);
+        }
+
+        body.dark-mode .story-card p {
+            color: #adb5bd;
+        }
+
+        /* Skills Section */
+        .skills-section {
+            padding: 100px 0;
             background: var(--light-green);
             transition: background-color 0.4s ease;
         }
 
-        body.dark-mode .booking-section {
+        body.dark-mode .skills-section {
             background: rgba(30, 45, 35, 0.85);
         }
 
-        .booking-card {
-            max-width: 900px;
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 35px;
+            max-width: 1200px;
             margin: 0 auto;
-            background: var(--white);
-            border-radius: var(--border-radius);
-            padding: 50px;
-            box-shadow: var(--card-shadow);
-            border-top: 5px solid var(--primary-green);
-            animation: scaleIn 1s ease;
         }
 
-        body.dark-mode .booking-card {
+        .skill-card {
+            background: var(--white);
+            border-radius: var(--border-radius);
+            padding: 35px;
+            text-align: center;
+            box-shadow: var(--card-shadow);
+            transition: var(--transition);
+            animation: scaleIn 0.6s ease;
+        }
+
+        body.dark-mode .skill-card {
             background: rgba(45, 50, 55, 0.7);
         }
 
-        .booking-card:hover {
-            transform: scale(1.02);
+        .skill-card:hover {
+            transform: translateY(-10px) rotate(2deg);
             box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
         }
 
-        .booking-header {
-            text-align: center;
-            margin-bottom: 40px;
-            animation: fadeInUp 1s ease;
+        .skill-icon {
+            font-size: 4rem;
+            margin-bottom: 20px;
+            display: block;
+            animation: float 3s ease-in-out infinite;
         }
 
-        .booking-header h3 {
-            font-size: 2.4rem;
+        .skill-card h3 {
+            font-size: 1.7rem;
             color: var(--primary-green);
             margin-bottom: 15px;
+            font-weight: 700;
         }
 
-        body.dark-mode .booking-header h3 {
+        body.dark-mode .skill-card h3 {
             color: var(--accent-green);
         }
 
-        .booking-header p {
-            font-size: 1.2rem;
-            color: var(--dark-gray);
+        .skill-card p {
+            font-size: 1.1rem;
             line-height: 1.7;
+            color: var(--dark-gray);
         }
 
-        body.dark-mode .booking-header p {
+        body.dark-mode .skill-card p {
             color: #adb5bd;
         }
 
-        .booking-content {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 40px;
-            margin-top: 35px;
+        /* Vision Section */
+        .vision-section {
+            padding: 100px 0;
+            background: linear-gradient(135deg, var(--primary-green), var(--secondary-green));
+            color: white;
+            position: relative;
+            overflow: hidden;
         }
 
-        .booking-features {
-            list-style: none;
-            animation: fadeInLeft 1s ease;
+        .vision-section::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0) 70%);
+            animation: float 8s ease-in-out infinite;
         }
 
-        .booking-features li {
-            display: flex;
-            align-items: flex-start;
-            margin-bottom: 20px;
-            font-size: 1.1rem;
-            animation: fadeInUp 0.6s ease;
-        }
-
-        .booking-features li::before {
-            content: '✓';
-            color: var(--accent-green);
-            font-weight: bold;
-            font-size: 1.5rem;
-            margin-right: 12px;
-            flex-shrink: 0;
-            animation: pulse 2s ease-in-out infinite;
-        }
-
-        .booking-contact {
-            background: var(--light-green);
-            padding: 30px;
-            border-radius: var(--border-radius);
+        .vision-content {
+            max-width: 900px;
+            margin: 0 auto;
             text-align: center;
-            animation: fadeInRight 1s ease;
+            position: relative;
+            z-index: 2;
+            animation: fadeInUp 1s ease;
         }
 
-        body.dark-mode .booking-contact {
-            background: rgba(46, 125, 50, 0.15);
+        .vision-content h2 {
+            font-size: 3.2rem;
+            margin-bottom: 30px;
+            text-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
         }
 
-        .booking-contact h4 {
+        .vision-content p {
+            font-size: 1.5rem;
+            line-height: 1.8;
+            opacity: 0.95;
+            margin-bottom: 25px;
+        }
+
+        .vision-quote {
             font-size: 1.8rem;
-            color: var(--primary-green);
-            margin-bottom: 20px;
+            font-style: italic;
+            margin-top: 40px;
+            padding: 30px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: var(--border-radius);
+            border-left: 5px solid white;
         }
 
-        body.dark-mode .booking-contact h4 {
-            color: var(--accent-green);
-        }
-
-        .contact-methods {
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-            margin-top: 25px;
-        }
-
-        .contact-method {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-            padding: 12px 20px;
-            background: var(--white);
-            border-radius: 50px;
-            text-decoration: none;
-            color: var(--darker-gray);
-            font-weight: 600;
-            transition: var(--transition);
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-        }
-
-        body.dark-mode .contact-method {
-            background: var(--darker-gray);
-            color: var(--light-gray);
-        }
-
-        .contact-method:hover {
-            transform: translateY(-3px) scale(1.05);
-            box-shadow: 0 4px 12px rgba(26, 86, 50, 0.3);
-            color: var(--primary-green);
-        }
-
-        body.dark-mode .contact-method:hover {
-            color: var(--accent-green);
-        }
-
-        /* Map Section */
-        .map-section {
-            padding: 80px 0;
+        /* Supporter Section */
+        .supporter-section {
+            padding: 100px 0;
             background-color: var(--white);
             transition: background-color 0.4s ease;
-            text-align: center;
         }
 
-        body.dark-mode .map-section {
+        body.dark-mode .supporter-section {
             background-color: var(--darker-gray);
         }
 
-        .map-container {
-            max-width: 1000px;
+        .supporter-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 60px;
+            align-items: center;
+            max-width: 1200px;
             margin: 0 auto;
-            background: var(--white);
+        }
+
+        .supporter-image {
+            flex: 1;
+            min-width: 300px;
+            animation: fadeInLeft 1s ease;
+        }
+
+        .supporter-image img {
+            width: 100%;
+            max-width: 400px;
             border-radius: var(--border-radius);
-            overflow: hidden;
             box-shadow: var(--card-shadow);
-            height: 450px;
-            animation: scaleIn 1s ease;
             transition: var(--transition);
         }
 
-        body.dark-mode .map-container {
-            background: rgba(45, 50, 55, 0.7);
+        .supporter-image img:hover {
+            transform: scale(1.05);
         }
 
-        .map-container:hover {
-            transform: scale(1.02);
-            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
+        .supporter-content {
+            flex: 1;
+            min-width: 300px;
+            animation: fadeInRight 1s ease;
         }
 
-        .map-container iframe {
-            width: 100%;
-            height: 100%;
-            border: none;
+        .supporter-badge {
+            display: inline-block;
+            background: var(--light-green);
+            color: var(--primary-green);
+            padding: 8px 20px;
+            border-radius: 25px;
+            font-weight: 600;
+            font-size: 1rem;
+            margin-bottom: 20px;
         }
 
-        /* Response Message */
-        .response-message {
-            display: none;
-            padding: 20px;
-            border-radius: var(--border-radius);
-            margin-top: 20px;
-            text-align: center;
-            font-weight: 500;
-            animation: fadeInUp 0.4s ease;
-        }
-
-        .response-success {
-            background-color: rgba(76, 175, 80, 0.15);
+        body.dark-mode .supporter-badge {
+            background: rgba(46, 125, 50, 0.2);
             color: var(--accent-green);
-            border: 1px solid var(--accent-green);
         }
 
-        .response-error {
-            background-color: rgba(244, 67, 54, 0.1);
-            color: #f44336;
-            border: 1px solid #f44336;
+        .supporter-content h3 {
+            font-size: 2.5rem;
+            color: var(--primary-green);
+            margin-bottom: 20px;
+        }
+
+        body.dark-mode .supporter-content h3 {
+            color: var(--accent-green);
+        }
+
+        .supporter-content p {
+            font-size: 1.2rem;
+            line-height: 1.8;
+            color: var(--dark-gray);
+            margin-bottom: 15px;
+        }
+
+        body.dark-mode .supporter-content p {
+            color: #adb5bd;
+        }
+
+        /* CTA Section */
+        .cta-section {
+            padding: 80px 40px;
+            background: var(--light-green);
+            text-align: center;
+            transition: background-color 0.4s ease;
+        }
+
+        body.dark-mode .cta-section {
+            background: rgba(30, 45, 35, 0.85);
+        }
+
+        .cta-content {
+            max-width: 800px;
+            margin: 0 auto;
+            animation: scaleIn 1s ease;
+        }
+
+        .cta-content h2 {
+            font-size: 2.8rem;
+            color: var(--primary-green);
+            margin-bottom: 25px;
+        }
+
+        body.dark-mode .cta-content h2 {
+            color: var(--accent-green);
+        }
+
+        .cta-content p {
+            font-size: 1.3rem;
+            color: var(--dark-gray);
+            margin-bottom: 35px;
+        }
+
+        body.dark-mode .cta-content p {
+            color: #adb5bd;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 16px 40px;
+            border: none;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: var(--transition);
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .btn-primary {
+            background: linear-gradient(120deg, var(--primary-green), var(--secondary-green));
+            color: white;
+            box-shadow: 0 4px 15px rgba(26, 86, 50, 0.3);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 8px 25px rgba(26, 86, 50, 0.4);
+        }
+
+        .btn-secondary {
+            background: white;
+            color: var(--primary-green);
+            border: 2px solid var(--primary-green);
+        }
+
+        .btn-secondary:hover {
+            background: var(--primary-green);
+            color: white;
+            transform: translateY(-3px) scale(1.05);
         }
 
         /* Footer */
@@ -914,7 +957,6 @@
             padding: 60px 0 30px;
             position: relative;
             overflow: hidden;
-            margin-top: 40px;
         }
 
         footer::before {
@@ -933,6 +975,15 @@
             );
             background-size: 200% 100%;
             animation: gradientShift 3s ease infinite;
+        }
+
+        @keyframes gradientShift {
+            0%, 100% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
         }
 
         .footer-content {
@@ -1204,7 +1255,7 @@
         /* Responsive Design */
         @media (max-width: 1024px) {
             .hero {
-                height: 450px;
+                height: 520px;
             }
             
             .hero-text h1 {
@@ -1212,29 +1263,15 @@
             }
             
             .hero-text p {
-                font-size: 1.4rem;
+                font-size: 1.6rem;
             }
             
-            .contact-section,
-            .map-section,
-            .booking-section {
-                padding: 80px 0;
-            }
-            
-            .contact-form {
-                padding: 35px;
-            }
-            
-            .info-card {
-                padding: 30px;
-            }
-            
-            .booking-card {
-                padding: 40px;
+            .profile-content h1 {
+                font-size: 3rem;
             }
             
             .section-title h2 {
-                font-size: 2.5rem;
+                font-size: 2.6rem;
             }
         }
 
@@ -1248,34 +1285,23 @@
             }
             
             .hero {
-                height: 400px;
+                height: 480px;
             }
             
             .hero-text h1 {
-                font-size: 2.7rem;
+                font-size: 2.8rem;
             }
             
             .hero-text p {
-                font-size: 1.3rem;
+                font-size: 1.4rem;
             }
             
-            .contact-container {
+            .profile-container,
+            .supporter-container {
                 flex-direction: column;
+                text-align: center;
             }
             
-            .contact-form,
-            .contact-info {
-                width: 100%;
-            }
-            
-            .booking-content {
-                grid-template-columns: 1fr;
-            }
-            
-            .map-container {
-                height: 400px;
-            }
-
             .footer-grid {
                 grid-template-columns: 1fr;
                 gap: 40px;
@@ -1297,7 +1323,7 @@
             }
             
             .hero {
-                height: 350px;
+                height: 440px;
             }
             
             .hero-text h1 {
@@ -1308,109 +1334,44 @@
                 font-size: 1.2rem;
             }
             
-            .hero-icon {
+            .hero-emoji {
                 font-size: 4rem;
             }
             
-            .contact-section,
-            .map-section,
-            .booking-section {
-                padding: 70px 0;
+            .profile-content h1 {
+                font-size: 2.4rem;
             }
             
-            .section-title h2 {
-                font-size: 2.3rem;
+            .profile-title {
+                font-size: 1.5rem;
             }
             
-            .section-title p {
+            .profile-bio {
                 font-size: 1.15rem;
             }
             
-            .contact-form {
-                padding: 30px 25px;
-            }
-            
-            .form-group label {
-                font-size: 1.05rem;
-            }
-            
-            .form-control {
-                padding: 14px 15px;
-                font-size: 1rem;
-            }
-            
-            textarea.form-control {
-                min-height: 150px;
-            }
-            
-            .submit-btn {
-                padding: 14px 35px;
-                font-size: 1.15rem;
-            }
-            
-            .info-card {
-                padding: 25px;
-            }
-            
-            .info-card h3 {
-                font-size: 1.7rem;
-            }
-            
-            .info-icon {
-                min-width: 40px;
-                height: 40px;
-                font-size: 1.25rem;
-            }
-            
-            .info-details h4 {
-                font-size: 1.2rem;
-            }
-            
-            .booking-card {
-                padding: 30px 25px;
-            }
-            
-            .booking-header h3 {
-                font-size: 2rem;
-            }
-            
-            .map-container {
-                height: 350px;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .hero {
-                height: 320px;
-            }
-            
-            .hero-text h1 {
-                font-size: 2.1rem;
-            }
-            
-            .hero-text p {
-                font-size: 1.1rem;
-            }
-            
             .section-title h2 {
-                font-size: 2.1rem;
+                font-size: 2.2rem;
             }
             
-            .contact-form {
-                padding: 25px 20px;
+            .stat-number {
+                font-size: 2.5rem;
             }
             
-            .submit-btn {
-                padding: 12px 30px;
-                font-size: 1.1rem;
+            .vision-content h2 {
+                font-size: 2.5rem;
             }
             
-            .booking-card {
-                padding: 25px 20px;
+            .vision-content p {
+                font-size: 1.3rem;
             }
             
-            .map-container {
-                height: 300px;
+            .cta-buttons {
+                flex-direction: column;
+            }
+            
+            .btn {
+                width: 100%;
             }
         }
     </style>
@@ -1425,9 +1386,9 @@
                 <li><a href="index.html">Home</a></li>
                 <li><a href="course-overview.html">Course Overview</a></li>
                 <li><a href="quiz.html">Start Quiz</a></li>
-                <li><a href="about.html">About</a></li>
+                <li><a href="about.html" class="active">About</a></li>
                 
-                <li><a href="contact.html" class="active">Contact</a></li>
+                <li><a href="contact.html">Contact</a></li>
             </ul>
             
             <div class="nav-cta">
@@ -1459,9 +1420,9 @@
             <li><a href="index.html">Home</a></li>
             <li><a href="course-overview.html">Course Overview</a></li>
             <li><a href="quiz.html">Start Quiz</a></li>
-            <li><a href="about.html">About</a></li>
-
-            <li><a href="contact.html" class="active">Contact</a></li>
+            <li><a href="about.html" class="active">About</a></li>
+   
+            <li><a href="contact.html">Contact</a></li>
         </ul>
         <div class="mobile-dark-mode">
             <p>Toggle Dark Mode</p>
@@ -1480,163 +1441,221 @@
     <section class="hero">
         <div class="hero-content">
             <div class="hero-text">
-                <span class="hero-icon">📧</span>
-                <h1>Get In Touch</h1>
-                <p>We're here to help you succeed in Operations Research</p>
+                <span class="hero-emoji">👋</span>
+                <h1>Meet the Creator</h1>
+                <p>Built with passion by a student, for students</p>
             </div>
         </div>
     </section>
     
-    <!-- Main Content Container -->
-    <main>
-        <!-- Contact Section -->
-        <section class="contact-section">
-            <div class="container">
-                <div class="section-title">
-                    <h2>Contact Us</h2>
-                    <p>Have questions about our platform, course content, or need technical support? Fill out the form below and we'll respond within 24-48 hours.</p>
+    <!-- Profile Section -->
+    <section class="profile-section">
+        <div class="container">
+            <div class="profile-container">
+                <div class="profile-image-container">
+                    <div class="profile-image-wrapper">
+                        <!-- Replace this URL with your actual photo -->
+                        <img src="WhatsApp Image 2026-02-06 at 7.54.26 PM.jpeg" alt="Ibrahim Mohammed Lotsu">
+                    </div>
                 </div>
-                <div class="contact-container">
-                    <div class="contact-form">
-                        <form id="contactForm">
-                            <div class="form-group">
-                                <label for="name">Full Name</label>
-                                <input type="text" id="name" class="form-control" placeholder="Enter your full name" required>
-                            </div>
-                            <div class="form-group">
-                                <label for="email">Email Address</label>
-                                <input type="email" id="email" class="form-control" placeholder="Enter your email address" required>
-                            </div>
-                            <div class="form-group">
-                                <label for="message">Message</label>
-                                <textarea id="message" class="form-control" placeholder="How can we help you today?" required></textarea>
-                            </div>
-                            <button type="submit" class="submit-btn">Send Message</button>
-                            <div id="responseMessage" class="response-message"></div>
-                        </form>
-                    </div>
-                    <div class="contact-info">
-                        <div class="info-card animate-on-scroll">
-                            <h3><span class="info-icon">📍</span> Office Location</h3>
-                            <div class="info-item">
-                                <div class="info-icon">🏢</div>
-                                <div class="info-details">
-                                    <h4>University Campus</h4>
-                                    <p>Accra Technical University</p>
-                                    <p>Department of Statistics</p>
-                                    <p>Accra, Ghana</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="info-card animate-on-scroll animate-delay-1">
-                            <h3><span class="info-icon">📞</span> Contact Details</h3>
-                            <div class="info-item">
-                                <div class="info-icon">📧</div>
-                                <div class="info-details">
-                                    <h4>Email Address</h4>
-                                    <a href="mailto:lotsuibrahim2@gmail.com">lotsuibrahim2@gmail.com</a>
-                                </div>
-                            </div>
-                            <div class="info-item">
-                                <div class="info-icon">📱</div>
-                                <div class="info-details">
-                                    <h4>Phone Numbers</h4>
-                                    <a href="tel:+233544823484">+233 54 482 3484</a>
-                                    <a href="tel:+233554196068">+233 55 419 6068</a>
-                                </div>
-                            </div>
-                            <div class="info-item">
-                                <div class="info-icon">💬</div>
-                                <div class="info-details">
-                                    <h4>WhatsApp</h4>
-                                    <a href="https://wa.me/233544823484" target="_blank" rel="noopener noreferrer">+233 54 482 3484</a>
-                                    <a href="https://wa.me/233554196068" target="_blank" rel="noopener noreferrer">+233 55 419 6068</a>
-                                </div>
-                            </div>
-                            <div class="info-item">
-                                <div class="info-icon">🕒</div>
-                                <div class="info-details">
-                                    <h4>Office Hours</h4>
-                                    <p>Monday - Friday: 9:00 AM - 5:00 PM</p>
-                                    <p>Saturday: 10:00 AM - 2:00 PM</p>
-                                    <p>Sunday: Closed</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                <div class="profile-content">
+                    <h1>Ibrahim Mohammed Lotsu</h1>
+                    <span class="profile-title">Creator & Developer 🚀</span>
+                    <p class="profile-bio">
+                        I'm an accounting student with a deep passion for web development and IT in general. While numbers and financial statements are my academic focus, my heart beats for technology and creating solutions that make a difference.
+                    </p>
+                    <p class="profile-bio">
+                        I love to solve problems — it's what drives me. When I saw my classmates struggling with Operations Research concepts and quiz preparation, I knew I had to do something. That's how this platform was born.
+                    </p>
+                    <p class="profile-bio">
+                        I built this website as part of my mission to help students, especially my classmates. I believe that when we help each other succeed, we all win. My hope is that this platform will grow and impact many students beyond just our class.
+                    </p>
                 </div>
             </div>
-        </section>
-        
-        <!-- Booking Section -->
-        <section class="booking-section">
-            <div class="container">
-                <div class="section-title">
-                    <h2>Book One-on-One Support</h2>
-                    <p>Get personalized guidance and detailed explanations tailored to your learning needs</p>
+        </div>
+    </section>
+    
+    <!-- Stats Section -->
+    <section class="stats-section">
+        <div class="container">
+            <div class="stats-grid">
+                <div class="stat-card animate-on-scroll">
+                    <span class="stat-icon">📚</span>
+                    <span class="stat-number">6</span>
+                    <span class="stat-label">OR Sections</span>
                 </div>
-                <div class="booking-card">
-                    <div class="booking-header">
-                        <h3>Premium Tutoring Sessions</h3>
-                        <p>Struggling with specific Operations Research topics? Book a personalized one-on-one session for in-depth explanations, problem-solving guidance, and exam preparation support.</p>
-                    </div>
-                    <div class="booking-content">
-                        <div class="booking-features">
-                            <h4 style="font-size: 1.6rem; color: var(--primary-green); margin-bottom: 20px;">What You Get:</h4>
-                            <ul style="list-style: none; padding: 0;">
-                                <li>Personalized attention focused on your specific challenges</li>
-                                <li>Detailed explanations of complex Operations Research concepts</li>
-                                <li>Step-by-step problem-solving techniques and strategies</li>
-                                <li>Practice questions tailored to your learning level</li>
-                                <li>Exam preparation and time management tips</li>
-                                <li>Flexible scheduling to fit your availability</li>
-                                <li>Sessions available via video call or in-person</li>
-                            </ul>
-                        </div>
-                        <div class="booking-contact">
-                            <h4>Ready to Book?</h4>
-                            <p style="margin-bottom: 25px; color: var(--dark-gray);">Contact us through any of the following methods to schedule your session:</p>
-                            <div class="contact-methods">
-                                <a href="tel:+233544823484" class="contact-method">
-                                    <span>📞</span> Call: +233 54 482 3484
-                                </a>
-                                <a href="https://wa.me/233544823484" target="_blank" rel="noopener noreferrer" class="contact-method">
-                                    <span>💬</span> WhatsApp: +233 54 482 3484
-                                </a>
-                                <a href="tel:+233554196068" class="contact-method">
-                                    <span>📞</span> Call: +233 55 419 6068
-                                </a>
-                                <a href="https://wa.me/233554196068" target="_blank" rel="noopener noreferrer" class="contact-method">
-                                    <span>💬</span> WhatsApp: +233 55 419 6068
-                                </a>
-                                <a href="mailto:lotsuibrahim2@gmail.com" class="contact-method">
-                                    <span>📧</span> Email Us
-                                </a>
-                            </div>
-                            <p style="margin-top: 20px; font-size: 0.95rem; color: var(--dark-gray); opacity: 0.8;">Session rates and availability will be discussed upon contact</p>
-                        </div>
-                    </div>
+                <div class="stat-card animate-on-scroll animate-delay-1">
+                    <span class="stat-icon">💯</span>
+                    <span class="stat-number">100+</span>
+                    <span class="stat-label">Quiz Questions</span>
+                </div>
+                <div class="stat-card animate-on-scroll animate-delay-2">
+                    <span class="stat-icon">🎯</span>
+                    <span class="stat-number">∞</span>
+                    <span class="stat-label">Practice Sessions</span>
+                </div>
+                <div class="stat-card animate-on-scroll animate-delay-3">
+                    <span class="stat-icon">❤️</span>
+                    <span class="stat-number">100%</span>
+                    <span class="stat-label">Built with Love</span>
                 </div>
             </div>
-        </section>
-        
-        <!-- Map Section -->
-        <section class="map-section">
-            <div class="container">
-                <div class="section-title">
-                    <h2>Our Location</h2>
-                    <p>Visit our academic office for in-person consultations and support sessions</p>
+        </div>
+    </section>
+    
+    <!-- My Story Section -->
+    <section class="story-section">
+        <div class="container">
+            <div class="section-title">
+                <h2>My Story</h2>
+                <p>How a passion for problem-solving led to creating this platform</p>
+            </div>
+            <div class="story-grid">
+                <div class="story-card animate-on-scroll">
+                    <span class="story-icon">🎓</span>
+                    <h3>The Student Journey</h3>
+                    <p>As an accounting student, I understand the pressure of exams, the struggle to grasp complex concepts, and the need for effective study tools. I've been there, and I wanted to create something that would have helped me.</p>
                 </div>
-                <div class="map-container">
-                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3971.086114222518!2d-0.20853762377494225!3d5.554252233664747!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xfdf9098819a2f8b%3A0x74f8d656f4a1981e!2sAccra%20Technical%20University!5e0!3m2!1sen!2sgh!4v1769105989611!5m2!1sen!2sgh"
-                         width="600" height="450" style="border:0;" 
-                         allowfullscreen="" loading="lazy" 
-                         referrerpolicy="no-referrer-when-downgrade">
-                    </iframe>
+                <div class="story-card animate-on-scroll animate-delay-1">
+                    <span class="story-icon">💡</span>
+                    <h3>The Problem</h3>
+                    <p>Operations Research is challenging. Many students struggle with the mathematical concepts, timed problem-solving, and exam preparation. I saw my classmates struggling and knew there had to be a better way to learn.</p>
+                </div>
+                <div class="story-card animate-on-scroll animate-delay-2">
+                    <span class="story-icon">🛠️</span>
+                    <h3>The Solution</h3>
+                    <p>Combining my passion for web development with the need for better learning tools, I built this platform. It's designed by a student who understands what students need — practical, accessible, and effective.</p>
+                </div>
+                <div class="story-card animate-on-scroll">
+                    <span class="story-icon">🎯</span>
+                    <h3>The Mission</h3>
+                    <p>My goal is simple: help as many students as possible master Operations Research. Starting with my class, but hoping to reach many more. Every student deserves access to quality learning resources.</p>
+                </div>
+                <div class="story-card animate-on-scroll animate-delay-1">
+                    <span class="story-icon">🤝</span>
+                    <h3>Community First</h3>
+                    <p>This isn't just my project — it's for all of us. I built it for my classmates first, but I dream of it helping students everywhere. Together, we can make learning Operations Research easier and more enjoyable.</p>
+                </div>
+                <div class="story-card animate-on-scroll animate-delay-2">
+                    <span class="story-icon">🚀</span>
+                    <h3>The Future</h3>
+                    <p>This is just the beginning. I'm constantly working to improve the platform based on feedback. If you have ideas or suggestions, please reach out. Let's build something amazing together!</p>
                 </div>
             </div>
-        </section>
-    </main>
+        </div>
+    </section>
+    
+    <!-- Skills Section -->
+    <section class="skills-section">
+        <div class="container">
+            <div class="section-title">
+                <h2>What Drives Me</h2>
+                <p>The passions and skills that brought this platform to life</p>
+            </div>
+            <div class="skills-grid">
+                <div class="skill-card animate-on-scroll">
+                    <span class="skill-icon">💻</span>
+                    <h3>Web Development</h3>
+                    <p>Building beautiful, functional websites is my passion. From HTML/CSS to JavaScript, I love bringing ideas to life through code.</p>
+                </div>
+                <div class="skill-card animate-on-scroll animate-delay-1">
+                    <span class="skill-icon">🔧</span>
+                    <h3>Problem Solving</h3>
+                    <p>I thrive on challenges. Whether it's debugging code or finding creative solutions, I love the process of solving complex problems.</p>
+                </div>
+                <div class="skill-card animate-on-scroll animate-delay-2">
+                    <span class="skill-icon">📊</span>
+                    <h3>Accounting & Finance</h3>
+                    <p>My academic foundation in accounting gives me a unique perspective on logical thinking and systematic problem-solving.</p>
+                </div>
+                <div class="skill-card animate-on-scroll">
+                    <span class="skill-icon">🎨</span>
+                    <h3>UI/UX Design</h3>
+                    <p>Creating intuitive, user-friendly interfaces is crucial. I focus on making learning experiences smooth and enjoyable.</p>
+                </div>
+                <div class="skill-card animate-on-scroll animate-delay-1">
+                    <span class="skill-icon">📱</span>
+                    <h3>Technology Enthusiast</h3>
+                    <p>I'm constantly learning new technologies and trends. Staying updated helps me build better, more modern solutions.</p>
+                </div>
+                <div class="skill-card animate-on-scroll animate-delay-2">
+                    <span class="skill-icon">🤲</span>
+                    <h3>Giving Back</h3>
+                    <p>Using my skills to help others is what motivates me. This platform is my way of contributing to my community.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Vision Section -->
+    <section class="vision-section">
+        <div class="vision-content">
+            <h2>My Vision for This Platform</h2>
+            <p>
+                I envision this platform becoming more than just a quiz website. I want it to be a comprehensive learning ecosystem where students can master Operations Research through practice, collaboration, and continuous improvement.
+            </p>
+            <p>
+                My dream is to see it grow beyond our class, helping students across universities, making OR concepts accessible to everyone, and proving that student-built solutions can create real impact.
+            </p>
+            <div class="vision-quote">
+                "When one student helps another, we all rise together. This platform is my contribution to that journey."
+                <br><br>
+                <strong>— Ibrahim Mohammed Lotsu</strong>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Supporter Section -->
+    <section class="supporter-section">
+        <div class="container">
+            <div class="section-title">
+                <h2>Academic Supporter</h2>
+                <p>Guidance and expertise from a distinguished Operations Research academic</p>
+            </div>
+            <div class="supporter-container">
+                <div class="supporter-image">
+                    <!-- Replace with actual lecturer photo -->
+                    <img src="WhatsApp Image 2026-02-04 at 1.17.45 AM.jpeg" alt="Prof. Ernest C. Winful">
+                </div>
+                <div class="supporter-content">
+                    <span class="supporter-badge">🎓 Academic Support</span>
+                    <h3>Prof. Ernest C. Winful</h3>
+                    <p>
+                        While I built this platform, Prof. Ernest C. Winful has been instrumental in providing academic guidance and expertise. His 20+ years of Operations Research experience helped ensure the content quality and accuracy.
+                    </p>
+                    <p>
+                        Prof. Winful's role is that of a supporter and advisor, helping validate the educational content and providing insights into effective OR pedagogy. His expertise gives students confidence in the material.
+                    </p>
+                    <p>
+                        This collaboration between student innovation and academic excellence makes the platform both practical and educationally sound.
+                    </p>
+                    <a href="lecturer.html" class="btn btn-primary">Learn More About Prof. Winful →</a>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <div class="container">
+            <div class="cta-content">
+                <h2>Let's Connect!</h2>
+                <p>
+                    Have suggestions? Want to contribute? Found a bug? I'd love to hear from you!
+                    <br>
+                    Your feedback helps make this platform better for everyone.
+                </p>
+                <div class="cta-buttons">
+                    <a href="contact.html" class="btn btn-primary">
+                        <span>📧</span> Get in Touch
+                    </a>
+                    <a href="quiz.html" class="btn btn-secondary">
+                        <span>🎯</span> Start Learning
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
     
     <!-- Footer -->
     <footer>
@@ -1764,58 +1783,6 @@
                 }
             });
             
-            // Contact Form Validation and Submission
-            const contactForm = document.getElementById('contactForm');
-            const responseMessage = document.getElementById('responseMessage');
-            
-            contactForm.addEventListener('submit', function(e) {
-                e.preventDefault();
-                
-                const name = document.getElementById('name').value.trim();
-                const email = document.getElementById('email').value.trim();
-                const message = document.getElementById('message').value.trim();
-                
-                const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-                
-                if (!name) {
-                    showResponse('Please enter your name', false);
-                    return;
-                }
-                
-                if (!email || !emailRegex.test(email)) {
-                    showResponse('Please enter a valid email address', false);
-                    return;
-                }
-                
-                if (!message || message.length < 10) {
-                    showResponse('Please enter a message with at least 10 characters', false);
-                    return;
-                }
-                
-                const submitBtn = this.querySelector('.submit-btn');
-                const originalButtonText = submitBtn.textContent;
-                submitBtn.disabled = true;
-                submitBtn.textContent = 'Sending...';
-                
-                setTimeout(() => {
-                    contactForm.reset();
-                    showResponse('Thank you for your message! We will respond within 24-48 hours.', true);
-                    submitBtn.disabled = false;
-                    submitBtn.textContent = originalButtonText;
-                }, 1500);
-            });
-            
-            function showResponse(message, isSuccess) {
-                responseMessage.textContent = message;
-                responseMessage.className = 'response-message';
-                responseMessage.classList.add(isSuccess ? 'response-success' : 'response-error');
-                responseMessage.style.display = 'block';
-                
-                setTimeout(() => {
-                    responseMessage.style.display = 'none';
-                }, 5000);
-            }
-
             // Scroll animations
             const observerOptions = {
                 threshold: 0.1,
@@ -1909,7 +1876,7 @@
         </div>
     </div>
 
-    <link rel="stylesheet" href="chatbot.css">
+    
     <script src="chatbot.js"></script>
 </body>
 </html>
